@@ -1,3 +1,5 @@
+const urlServer = 'http://hospitaldev.test';
+
 // Peticion AJAX para las tablas
 const inputFilter = document.querySelector('#filter');
 if (inputFilter) {
@@ -24,10 +26,7 @@ function getData() {
 			document.querySelectorAll('[data-type-form="delete"]').forEach(form => {
 				form.addEventListener('submit', e => {
 					e.preventDefault();
-					if (confirm('¿Deseas eliminar?')) {
-						form.submit();
-						return;
-					}
+					form.firstElementChild.nextElementSibling.addEventListener('click', form.submit());
 				});
 			});
 		})
@@ -70,10 +69,10 @@ if (formSession) {
 
 			if (inputPassword.type === "password") {
 				inputPassword.type = "text";
-				imgEye.src = 'http://hospitaldev.test/public/img/eye-off.svg';
+				imgEye.src = `${urlServer}/public/img/eye-off.svg`;
 			} else {
 				inputPassword.type = "password";
-				imgEye.src = 'http://hospitaldev.test/public/img/eye.svg';
+				imgEye.src = `${urlServer}/public/img/eye.svg`;
 			}
 		});
 	});

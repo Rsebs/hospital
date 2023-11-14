@@ -41,15 +41,34 @@ if ($result->rowCount() > 0) {
 					<a href="createBill.php?id=' . $r['id'] . '" title="Crear Factura" class="btn btn-secondary">
 						<img src="' . $imgBillAdd . '" alt="image edit">
 					</a>
-					<a href="edit.php?id=' . $r['id'] . '" title="Editar Factura" class="btn btn-success">
+					<a href="edit.php?id=' . $r['id'] . '" title="Editar" class="btn btn-success">
 						<img src="' . $imgEdit . '" alt="image edit">
 					</a>
-					<form action="destroy.php" method="POST" data-type-form="delete">
-						<input type="hidden" name="id" value="' . $r['id'] . '">
-						<button type="submit" title="Borrar Factura" class="btn btn-danger">
-							<img src="' . $imgRemove . '" alt="image remove">
-						</button>
-					</form>
+					<button type="button" class="btn btn-danger" title="Eliminar" data-bs-toggle="modal" data-bs-target="#modal-delete-' . $r['id'] . '">
+						<img src="' . $imgRemove . '" alt="image remove">
+					</button>
+					<div class="modal fade" id="modal-delete-' . $r['id'] . '" tabindex="-1" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5 text-danger fw-bold" id="exampleModalLabel">Eliminar Registro</h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<p>¿Estás seguro que quieres eliminar el siguiente registro?</p>
+									<p><strong>Documento: </strong>' . $r['document'] . '</p>
+									<p><strong>Nombres: </strong>' . $r['first_name'] . ' ' . $r['second_name'] . ' ' . $r['first_last_name'] . ' ' . $r['second_last_name'] . '</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+									<form action="destroy.php" method="POST" data-type-form="delete">
+										<input type="hidden" name="id" value="' . $r['id'] . '">
+										<button type="submit" class="btn btn-danger">Eliminar</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
 				</td>
 			</tr>';
 	}

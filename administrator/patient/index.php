@@ -6,24 +6,6 @@ include '../../includes/functions.php';
 validateSession();
 ?>
 
-<?php
-
-require '../../config/db.php';
-include '../../includes/urls.php';
-
-try {
-	$query = 'SELECT p.*, g.name AS gender_name FROM patients p INNER JOIN genders g ON p.gender_id = g.id';
-
-	$request = $connection->prepare($query);
-	$request->execute();
-
-	$resultPatient = $connection->query($query);
-} catch (Exception $error) {
-	echo $error;
-}
-
-?>
-
 <main class="container">
 	<div class="card">
 		<div class="card-header bg-color-primary">
@@ -37,7 +19,6 @@ try {
 			<?php
 			include '../../includes/components/alerts.php';
 			?>
-
 			<form action="#" method="post">
 				<input type="text" class="form-control" id="filter" name="filter" placeholder="Buscar">
 			</form>
@@ -59,5 +40,4 @@ try {
 		</div>
 	</div>
 </main>
-
 <?php include '../../includes/footer.php'; ?>
