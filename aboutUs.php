@@ -13,7 +13,7 @@ $siteName = 'HospitalDev';
 			<img class="rounded mx-auto d-block img-fluid" src="<?php echo $imgAboutUs01; ?>" alt="image about us">
 		</div>
 		<div class="col-lg">
-			<p>Bienvenidos al Hospital <strong><?php echo $siteName; ?>,</strong> un centro de atención médica comprometido con la salud y el bienestar de nuestra comunidad desde [año de fundación]. Nuestra misión es proporcionar atención médica de alta calidad, compasión y apoyo a nuestros pacientes y sus familias en todo momento.</p>
+			<p>Bienvenidos al Hospital <strong><?php echo $siteName; ?>,</strong> un centro de atención médica comprometido con la salud y el bienestar de nuestra comunidad desde 2005. Nuestra misión es proporcionar atención médica de alta calidad, compasión y apoyo a nuestros pacientes y sus familias en todo momento.</p>
 			<p>En <strong><?php echo $siteName; ?>,</strong> estamos dedicados a la excelencia en la atención médica. Nuestro equipo de médicos, enfermeras y personal de apoyo trabaja incansablemente para garantizar que cada paciente reciba el más alto nivel de atención médica, basada en la evidencia científica y en la última tecnología médica.</p>
 			<p>Nuestra instalación cuenta con tecnología de vanguardia y un entorno hospitalario de vanguardia para garantizar un ambiente seguro y cómodo para nuestros pacientes. Estamos comprometidos con la mejora continua y la inversión en la última tecnología médica para ofrecer diagnósticos precisos y tratamientos efectivos. </p>
 		</div>

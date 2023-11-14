@@ -28,13 +28,13 @@ session_start();
 			<div class="container">
 				<img class="logo" src="<?php echo $imgHospitalApp ?>" alt="image hospital app">
 				<a class="navbar-brand title" href="<?php echo $urlIndex; ?>">Hospital<span>Dev</span></a>
-				<?php if (!empty($_SESSION['user_id'])) { ?>
+				<?php if (!empty($_SESSION['id'])) { ?>
 					<button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
 				<?php } ?>
 				<div class="collapse navbar-collapse" id="collapsibleNavId">
-					<?php if (!empty($_SESSION['user_id'])) { ?>
+					<?php if (!empty($_SESSION['id'])) { ?>
 						<ul class="navbar-nav me-auto mt-2 mt-lg-0">
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administrar</a>
@@ -47,13 +47,13 @@ session_start();
 								</div>
 							</li>
 							<li class="nav-item">
-								<p class="nav-link m-0 fw-bold">Bievenido <?php echo $_SESSION['user_userName']; ?></p>
+								<p class="nav-link m-0 fw-bold">Bievenido <?php echo $_SESSION['user_name']; ?></p>
 							</li>
 						</ul>
 					<?php } ?>
 				</div>
 				<nav class="navbar-nav me-auto mt-2 mt-lg-0">
-					<?php if (!empty($_SESSION['user_id'])) { ?>
+					<?php if (!empty($_SESSION['id'])) { ?>
 						<a class="nav-link" href="<?php echo $urlLogOut; ?>">Cerrar Sesión</a>
 					<?php } else { ?>
 						<a class="nav-link" href="<?php echo $urlLogin; ?>">Iniciar Sesión</a>

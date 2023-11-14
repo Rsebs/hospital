@@ -8,23 +8,23 @@ include '../config/db.php';
 include '../includes/urls.php';
 
 if ($_POST) {
-	$user_userName = $_POST['user_userName'];
-	$user_password = $_POST['user_password'];
+	$user_name = $_POST['user_name'];
+	$user_pass = $_POST['user_pass'];
 
 	try {
-		$query = 'SELECT * FROM users WHERE user_userName = :user_userName';
+		$query = 'SELECT * FROM users WHERE user_name = :user_name';
 
 		$request = $connection->prepare($query);
-		$request->bindParam(':user_userName', $user_userName);
+		$request->bindParam(':user_name', $user_name);
 		$request->execute();
 
 		$resultUser = $request->fetch(PDO::FETCH_LAZY);
 
 		if ($resultUser) {
-			if (password_verify($user_password, $resultUser['user_password'])) {
-				$_SESSION['user_id'] = $resultUser['user_id'];
-				$_SESSION['user_userName'] = $resultUser['user_userName'];
-				header('location:/hospital/');
+			if (password_verify($user_pass, $resultUser['user_pass'])) {
+				$_SESSION['id'] = $resultUser['id'];
+				$_SESSION['user_name'] = $resultUser['user_name'];
+				header("location:$urlIndex");
 			} else {
 				echo "
 				<script>
@@ -50,12 +50,12 @@ if ($_POST) {
 		<h1 class="text-center mb-4">Inicia Sesión</h1>
 		<div class="row">
 			<div class="col-lg input-group mb-4">
-				<label class="input-group-text" for="user_userName">Username</label>
-				<input type="text" class="form-control" id="user_userName" name="user_userName" placeholder="Tu nombre de usuario" required>
+				<label class="input-group-text" for="user_name">Username</label>
+				<input type="text" class="form-control" id="user_name" name="user_name" placeholder="Tu nombre de usuario" required>
 			</div>
 			<div class="col-lg input-group mb-4">
-				<label class="input-group-text" for="user_password">Contraseña</label>
-				<input type="password" class="form-control" id="user_password" name="user_password" placeholder="Tu contraseña" required>
+				<label class="input-group-text" for="user_pass">Contraseña</label>
+				<input type="password" class="form-control" id="user_pass" name="user_pass" placeholder="Tu contraseña" required>
 				<button id="btnShowPassword" type="button" class="btn btn-secondary" data-type-btn="show-password">
 					<img src="<?php echo $imgEye; ?>" alt="image eye" title="Mostrar Contraseña">
 				</button>

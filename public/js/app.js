@@ -1,15 +1,37 @@
-// Válida si se desea eliminar un registro
-const formsDelete = document.querySelectorAll('[data-type-form="delete"]');
-if (formsDelete) {
-	formsDelete.forEach(form => {
-		form.addEventListener('submit', e => {
-			e.preventDefault();
-			if (confirm('¿Deseas eliminar?')) {
-				form.submit();
-				return;
-			}
-		});
-	});
+// Peticion AJAX para las tablas
+const inputFilter = document.querySelector('#filter');
+if (inputFilter) {
+	getData();
+	inputFilter.addEventListener('keyup', getData);
+}
+
+function getData() {
+	const inputFilter = document.querySelector('#filter').value;
+	const content = document.querySelector('#content');
+	const url = 'load.php';
+	const formData = new FormData();
+
+	formData.append('filter', inputFilter);
+
+	fetch(url, {
+		method: 'POST',
+		body: formData
+	}).then(response => response.json())
+		.then(data => {
+			content.innerHTML = data;
+
+			// Válida si se desea eliminar un registro
+			document.querySelectorAll('[data-type-form="delete"]').forEach(form => {
+				form.addEventListener('submit', e => {
+					e.preventDefault();
+					if (confirm('¿Deseas eliminar?')) {
+						form.submit();
+						return;
+					}
+				});
+			});
+		})
+		.catch(err => console.log(err));
 }
 
 // Muestra una alerta al usuario
@@ -23,19 +45,11 @@ function showAlert(ref, msg, type) {
 
 		document.querySelector(ref).appendChild(divAlert);
 
-		setTimeout(() => {
-			divAlert.remove();
-		}, 5000);
-
 		return;
 	}
 
 	divAlert.classList.add('alert-success');
 	divAlert.textContent = msg;
-
-	setTimeout(() => {
-		divAlert.remove();
-	}, 5000);
 
 	document.querySelector(ref).appendChild(divAlert);
 }
@@ -56,24 +70,24 @@ if (formSession) {
 
 			if (inputPassword.type === "password") {
 				inputPassword.type = "text";
-				imgEye.src = 'http://localhost/hospital/public/img/eye-off.svg';
+				imgEye.src = 'http://hospitaldev.test/public/img/eye-off.svg';
 			} else {
 				inputPassword.type = "password";
-				imgEye.src = 'http://localhost/hospital/public/img/eye.svg';
+				imgEye.src = 'http://hospitaldev.test/public/img/eye.svg';
 			}
 		});
 	});
-	
+
 }
 
 function validatePasswordMatch(e) {
 	e.preventDefault();
-	
+
 	const inputPasswordVerify = document.querySelector('#user_passwordVerify');
-	
+
 	if (inputPasswordVerify) {
 		const inputPassword = document.querySelector('#user_password');
-		
+
 		if (inputPassword.value === inputPasswordVerify.value) {
 			formSession.submit();
 		} else {

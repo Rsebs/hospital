@@ -1,5 +1,5 @@
 <?php
-$urlServer = "http://localhost/hospital";
+$urlServer = "http://hospitaldev.test";
 
 // URLs App
 $urlIndex = $urlServer;

@@ -22,14 +22,14 @@ try {
 
 // INSERT
 if ($_POST) {
-	$pat_document =  $_POST['pat_document'];
-	$pat_firstName = ucfirst($_POST['pat_firstName']);
-	$pat_secondName = ucfirst($_POST['pat_secondName']);
-	$pat_firstLastName = ucfirst($_POST['pat_firstLastName']);
-	$pat_secondLastName = ucfirst($_POST['pat_secondLastName']);
+	$document =  $_POST['document'];
+	$first_name = ucfirst($_POST['first_name']);
+	$second_name = ucfirst($_POST['second_name']);
+	$first_last_name = ucfirst($_POST['first_last_name']);
+	$second_last_name = ucfirst($_POST['second_last_name']);
 	$gender_id = $_POST['gender_id'];
-	$pat_email = strtolower($_POST['pat_email']);
-	$pat_number = $_POST['pat_number'];
+	$email = strtolower($_POST['email']);
+	$contact_number = $_POST['contact_number'];
 
 	try {
 		$query =
@@ -37,26 +37,25 @@ if ($_POST) {
 			patients 
 		VALUES(
 			NULL, 
-			:pat_document, 
-			:pat_firstName, 
-			:pat_secondName,
-			:pat_firstLastName,
-			:pat_secondLastName, 
+			:document, 
+			:first_name, 
+			:second_name,
+			:first_last_name,
+			:second_last_name, 
 			:gender_id, 
-			:pat_email,
-			:pat_number,
-			NULL
+			:email,
+			:contact_number
 		)';
 
 		$request = $connection->prepare($query);
-		$request->bindParam(':pat_document', $pat_document);
-		$request->bindParam(':pat_firstName', $pat_firstName);
-		$request->bindParam(':pat_secondName', $pat_secondName);
-		$request->bindParam(':pat_firstLastName', $pat_firstLastName);
-		$request->bindParam(':pat_secondLastName', $pat_secondLastName);
+		$request->bindParam(':document', $document);
+		$request->bindParam(':first_name', $first_name);
+		$request->bindParam(':second_name', $second_name);
+		$request->bindParam(':first_last_name', $first_last_name);
+		$request->bindParam(':second_last_name', $second_last_name);
 		$request->bindParam(':gender_id', $gender_id);
-		$request->bindParam(':pat_email', $pat_email);
-		$request->bindParam(':pat_number', $pat_number);
+		$request->bindParam(':email', $email);
+		$request->bindParam(':contact_number', $contact_number);
 
 		$request->execute();
 
@@ -72,7 +71,7 @@ if ($_POST) {
 	} catch (Exception $error) {
 		echo "
 		<script>
-			document.addEventListener('DOMContentLoaded', () => showAlert('#alert', 'No se pudo realizar el registro. El documento \"$pat_document\" ya existe', 'error'));
+			document.addEventListener('DOMContentLoaded', () => showAlert('#alert', 'No se pudo realizar el registro. El documento \"$document\" ya existe', 'error'));
 		</script>
 		";
 	}
@@ -86,28 +85,28 @@ if ($_POST) {
 			<div class="mt-4">
 				<div class="row">
 					<div class="input-group mb-4 col-lg">
-						<label for="pat_firstName" class="input-group-text">Nombres</label>
-						<input type="text" name="pat_firstName" id="pat_firstName" class="form-control" placeholder="Primero" required>
-						<input type="text" name="pat_secondName" id="pat_secondName" class="form-control" placeholder="Segundo">
+						<label for="first_name" class="input-group-text">Nombres</label>
+						<input type="text" name="first_name" id="first_name" class="form-control" placeholder="Primero" required>
+						<input type="text" name="second_name" id="second_name" class="form-control" placeholder="Segundo">
 					</div>
 					<div class="input-group mb-4 col-lg">
-						<label for="pat_firstLastName" class="input-group-text">Apellidos</label>
-						<input type="text" name="pat_firstLastName" id="pat_firstLastName" class="form-control" placeholder="Primero" required>
-						<input type="text" name="pat_secondLastName" id="pat_secondLastName" class="form-control" placeholder="Segundo">
+						<label for="first_last_name" class="input-group-text">Apellidos</label>
+						<input type="text" name="first_last_name" id="first_last_name" class="form-control" placeholder="Primero" required>
+						<input type="text" name="second_last_name" id="second_last_name" class="form-control" placeholder="Segundo">
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-group mb-4 col-lg">
-						<label for="pat_document" class="input-group-text">Documento</label>
-						<input type="text" name="pat_document" id="document" class="form-control" placeholder="Número de patumento" required>
+						<label for="document" class="input-group-text">Documento</label>
+						<input type="text" name="document" id="document" class="form-control" placeholder="Número de patumento" required>
 					</div>
 					<div class="input-group mb-4 col-lg">
-						<label class="input-group-text" for="pat_gender">Género</label>
-						<select class="form-select" name="gender_id" id="pat_gender" required>
+						<label class="input-group-text" for="gender">Género</label>
+						<select class="form-select" name="gender_id" id="gender" required>
 							<option value="" selected disabled>-- Selecciona --</option>
 							<?php
 							foreach ($resultGenders as $e) {
-								echo '<option value="' . $e['gender_id'] . '">' . $e['gender_name'] . '</option>';
+								echo '<option value="' . $e['id'] . '">' . $e['name'] . '</option>';
 							}
 							?>
 						</select>
@@ -115,12 +114,12 @@ if ($_POST) {
 				</div>
 				<div class="row">
 					<div class="input-group mb-4 col-lg">
-						<label for="pat_email" class="input-group-text">Email</label>
-						<input type="email" name="pat_email" id="pat_email" class="form-control" placeholder="Correo Electrónico">
+						<label for="email" class="input-group-text">Email</label>
+						<input type="email" name="email" id="email" class="form-control" placeholder="Correo Electrónico">
 					</div>
 					<div class="input-group mb-4 col-lg">
-						<label for="pat_number" class="input-group-text">Número de Teléfono</label>
-						<input type="tel" name="pat_number" id="pat_number" class="form-control" placeholder="Puede ser fijo o móvil">
+						<label for="contact_number" class="input-group-text">Número de Teléfono</label>
+						<input type="tel" name="contact_number" id="contact_number" class="form-control" placeholder="Puede ser fijo o móvil">
 					</div>
 				</div>
 			</div>

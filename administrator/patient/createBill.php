@@ -11,7 +11,7 @@ require '../../config/db.php';
 
 try {
 	// Doctors
-	$query = 'SELECT * FROM doctors';
+	$query = 'SELECT * FROM personals';
 
 	$request = $connection->prepare($query);
 	$request->execute();
@@ -32,33 +32,33 @@ try {
 
 // SELECT
 if ($_GET) {
-	$pat_id = $_GET['pat_id'];
+	$id = $_GET['id'];
 
 	try {
 		$query =
 			'SELECT 
 			p.*,
-			g.gender_name
+			g.name AS gender_name
 		FROM 
 			patients p 
 		INNER JOIN 
-			genders g ON g.gender_id = p.gender_id
+			genders g ON g.id = p.gender_id
 		WHERE 
-			pat_id = :pat_id';
+			p.id = :id';
 
 		$request = $connection->prepare($query);
-		$request->bindParam(':pat_id', $pat_id);
+		$request->bindParam(':id', $id);
 		$request->execute();
 
 		$resultPat = $request->fetch(PDO::FETCH_LAZY);
-		$pat_document = $resultPat['pat_document'];
-		$pat_firstName = $resultPat['pat_firstName'];
-		$pat_secondName = $resultPat['pat_secondName'];
-		$pat_firstLastName = $resultPat['pat_firstLastName'];
-		$pat_secondLastName = $resultPat['pat_secondLastName'];
+		$document = $resultPat['document'];
+		$first_name = $resultPat['first_name'];
+		$second_name = $resultPat['second_name'];
+		$first_last_name = $resultPat['first_last_name'];
+		$second_last_name = $resultPat['second_last_name'];
 		$gender_id = $resultPat['gender_id'];
-		$pat_email  = $resultPat['pat_email'];
-		$pat_number = $resultPat['pat_number'];
+		$email  = $resultPat['email'];
+		$contact_number = $resultPat['contact_number'];
 		$gender_name = $resultPat['gender_name'];
 	} catch (Exception $error) {
 		echo $error;
@@ -67,21 +67,21 @@ if ($_GET) {
 
 // INSERT
 if ($_POST) {
-	$pat_id = $_POST['pat_id'];
+	$id = $_POST['id'];
 	$doc_id = $_POST['doc_id'];
 	$medicine_id = $_POST['medicine_id'];
-	$ordered_description = $_POST['ordered_description'];
-	$ordered_amount = $_POST['ordered_amount'];
+	$description = $_POST['description'];
+	$amount = $_POST['amount'];
 
 	try {
-		$query = 'INSERT INTO bills VALUES (NULL, :pat_id, :doc_id, :medicine_id, :ordered_description, :ordered_amount)';
+		$query = 'INSERT INTO bills VALUES (NULL, :id, :doc_id, :medicine_id, :description, :amount)';
 
 		$request = $connection->prepare($query);
-		$request->bindParam(':pat_id', $pat_id);
+		$request->bindParam(':id', $id);
 		$request->bindParam(':doc_id', $doc_id);
 		$request->bindParam(':medicine_id', $medicine_id);
-		$request->bindParam(':ordered_description', $ordered_description);
-		$request->bindParam(':ordered_amount', $ordered_amount);
+		$request->bindParam(':description', $description);
+		$request->bindParam(':amount', $amount);
 
 		$request->execute();
 
@@ -104,21 +104,21 @@ if ($_POST) {
 	<?php if ($_GET) { ?>
 		<form action="createBill.php" method="POST">
 			<h1 class="fs-2 text-center">Crear Factura de Paciente</h1>
-			<input type="hidden" name="pat_id" id="pat_id" value="<?php echo $pat_id; ?>">
+			<input type="hidden" name="id" id="id" value="<?php echo $id; ?>">
 			<div class="mt-4">
 				<fieldset>
 					<legend class="text-secondary mb-4">Información del Paciente</legend>
 					<div class="row align-items-center">
 						<p class="mb-4 col-4 col-lg-2 fw-bold">Nombres:</p>
-						<p class="mb-4 col-8 col-lg"> <?php echo $pat_firstName . ' ' . $pat_secondName . ' ' . $pat_firstLastName . ' ' . $pat_secondLastName ?></p>
+						<p class="mb-4 col-8 col-lg"> <?php echo $first_name . ' ' . $second_name . ' ' . $first_last_name . ' ' . $second_last_name ?></p>
 						<p class="mb-4 col-4 col-lg-2 fw-bold">Documento:</p>
-						<p class="mb-4 col-8 col-lg"><?php echo $pat_document ?></p>
+						<p class="mb-4 col-8 col-lg"><?php echo $document ?></p>
 					</div>
 					<div class="row align-items-center">
 						<p class="mb-4 col-4 col-lg-2 fw-bold">Email:</p>
-						<p class="mb-4 col-8 col-lg"><?php echo $pat_email ?></p>
+						<p class="mb-4 col-8 col-lg"><?php echo $email ?></p>
 						<p class="mb-4 col-4 col-lg-2 fw-bold">Número de Teléfono:</p>
-						<p class="mb-4 col-8 col-lg"><?php echo $pat_number ?></p>
+						<p class="mb-4 col-8 col-lg"><?php echo $contact_number ?></p>
 					</div>
 					<div class="row align-items-center">
 						<p class="mb-4 col-4 col-lg-2 fw-bold">Género:</p>
@@ -133,7 +133,7 @@ if ($_POST) {
 							<option value="" selected disabled>-- Selecciona --</option>
 							<?php
 							foreach ($resultDoctors as $e) {
-								echo '<option value="' . $e['doc_id'] . '">' . $e['doc_firstName'] . ' ' . $e['doc_secondName'] . ' ' . $e['doc_firstLastName'] . ' (' . $e['doc_document'] . ')' . '</option>';
+								echo '<option value="' . $e['id'] . '">' . $e['first_name'] . ' ' . $e['second_name'] . ' ' . $e['first_last_name'] . ' (' . $e['document'] . ')' . '</option>';
 							}
 							?>
 						</select>
@@ -145,19 +145,19 @@ if ($_POST) {
 								<option value="" selected disabled>-- Selecciona --</option>
 								<?php
 								foreach ($resultMedicines as $e) {
-									echo '<option value="' . $e['medicine_id'] . '">' . $e['medicine_name'] . '</option>';
+									echo '<option value="' . $e['id'] . '">' . $e['name'] . '</option>';
 								}
 								?>
 							</select>
 						</div>
 						<div class="input-group mb-4 col-lg">
-							<label for="ordered_amount" class="input-group-text">Cantidad</label>
-							<input type="number" name="ordered_amount" id="ordered_amount" class="form-control" placeholder="Cantidad Recetada" min="1" required>
+							<label for="amount" class="input-group-text">Cantidad</label>
+							<input type="contact_number" name="amount" id="amount" class="form-control" placeholder="Cantidad Recetada" min="1" required>
 						</div>
 					</div>
 					<div class="form-floating">
-						<textarea class="form-control" placeholder="Leave a comment here" id="ordered_description" name="ordered_description" style="height: 200px" required></textarea>
-						<label for="ordered_description">Descripción de la Receta</label>
+						<textarea class="form-control" placeholder="Leave a comment here" id="description" name="description" style="height: 200px" required></textarea>
+						<label for="description">Descripción de la Receta</label>
 					</div>
 				</fieldset>
 			</div>

@@ -13,13 +13,13 @@ include 'includes/urls.php';
 
 // DELETE
 if ($_POST) {
-	$ordered_id = $_POST['ordered_id'];
+	$id = $_POST['id'];
 
 	try {
-		$query = 'DELETE FROM bills WHERE ordered_id = :ordered_id';
+		$query = 'DELETE FROM bills WHERE id = :id';
 
 		$request = $connection->prepare($query);
-		$request->bindParam(':ordered_id', $ordered_id);
+		$request->bindParam(':id', $id);
 		$request->execute();
 
 		echo "
@@ -39,15 +39,28 @@ if ($_POST) {
 try {
 	$query =
 		'SELECT
-		*
+		b.id AS b_id,
+		pat.document AS pat_document,
+		pat.first_name AS pat_first_name,
+		pat.second_name AS pat_second_name,
+		pat.first_last_name AS pat_first_last_name,
+		pat.second_last_name AS pat_second_last_name,
+		per.document AS per_document,
+		per.first_name AS per_first_name,
+		per.second_name AS per_second_name,
+		per.first_last_name AS per_first_last_name,
+		per.second_last_name AS per_second_last_name,
+		m.name AS m_name,
+		b.amount AS b_amount,
+		b.description AS b_description
 	FROM 
 		bills b
 	INNER JOIN 
-		patients p ON p.pat_id = b.pat_id
+		patients pat ON pat.id = b.pat_id
 	INNER JOIN 
-		doctors d ON d.doc_id = b.doc_id
+		personals per ON per.id = b.per_id
 	INNER JOIN 
-		medicines m ON m.medicine_id = b.medicine_id
+		medicines m ON m.id = b.medicine_id
 	';
 
 	$request = $connection->prepare($query);
@@ -88,17 +101,17 @@ try {
 							foreach ($resultPatient as $e) {
 								echo '
 									<tr>
-										<td>' . $e['ordered_id'] . '</td>
-										<td> (' . $e['pat_document'] . ') ' . $e['pat_firstName'] . ' ' . $e['pat_secondName'] . ' ' . $e['pat_firstLastName'] . ' ' . $e['pat_secondLastName'] . '</td>
-										<td> (' . $e['doc_document'] . ') ' . $e['doc_firstName'] . ' ' . $e['doc_secondName'] . ' ' . $e['doc_firstLastName'] . ' ' . $e['doc_secondLastName'] . '</td>
-										<td>' . $e['medicine_name'] . ' (' . $e['ordered_amount'] . ')</td>
-										<td>' . $e['ordered_description'] . '</td>
+										<td>' . $e['b_id'] . '</td>
+										<td> (' . $e['pat_document'] . ') ' . $e['pat_first_name'] . ' ' . $e['pat_second_name'] . ' ' . $e['pat_first_last_name'] . ' ' . $e['pat_second_last_name'] . '</td>
+										<td> (' . $e['per_document'] . ') ' . $e['per_first_name'] . ' ' . $e['per_second_name'] . ' ' . $e['per_first_last_name'] . ' ' . $e['per_second_last_name'] . '</td>
+										<td>' . $e['m_name'] . ' (' . $e['b_amount'] . ')</td>
+										<td>' . $e['b_description'] . '</td>
 										<td class="d-flex flex-sm-column flex-lg-row gap-2">
-											<a href="seeBill.php?ordered_id=' . $e['ordered_id'] . '" title="Ver Factura" class="btn btn-primary">
+											<a href="seeBill.php?id=' . $e['b_id'] . '" title="Ver Factura" class="btn btn-primary">
 												<img src="' . $imgEye . '" alt="image edit">
 											</a>
 											<form action="index.php" method="POST" data-type-form="delete">
-												<input type="hidden" name="ordered_id" value="' . $e['ordered_id'] . '">
+												<input type="hidden" name="id" value="' . $e['b_id'] . '">
 												<button type="submit" title="Borrar Factura" class="btn btn-danger">
 													<img src="' . $imgRemove . '" alt="image remove">
 												</button>
