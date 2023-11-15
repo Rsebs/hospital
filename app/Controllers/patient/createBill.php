@@ -13,9 +13,9 @@ if ($_POST) {
 	$amount = $_POST['amount'];
 
 	try {
-		$query = 'INSERT INTO bills VALUES (NULL, :id, :doc_id, :medicine_id, :description, :amount)';
+		$sql = 'INSERT INTO bills VALUES (NULL, :id, :doc_id, :medicine_id, :description, :amount)';
 
-		$request = $connection->prepare($query);
+		$request = $connection->prepare($sql);
 		$request->bindParam(':id', $id);
 		$request->bindParam(':doc_id', $doc_id);
 		$request->bindParam(':medicine_id', $medicine_id);

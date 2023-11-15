@@ -16,7 +16,7 @@ if ($_POST) {
 	$contact_number = $_POST['contact_number'];
 
 	try {
-		$query =
+		$sql =
 			'INSERT INTO 
 			patients 
 		VALUES(
@@ -31,7 +31,7 @@ if ($_POST) {
 			:contact_number
 		)';
 
-		$request = $connection->prepare($query);
+		$request = $connection->prepare($sql);
 		$request->bindParam(':document', $document);
 		$request->bindParam(':first_name', $first_name);
 		$request->bindParam(':second_name', $second_name);

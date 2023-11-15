@@ -8,9 +8,9 @@ if ($_POST) {
 	$id = $_POST['id'];
 
 	try {
-		$query = 'DELETE FROM patients WHERE id = :id';
+		$sql = 'DELETE FROM patients WHERE id = :id';
 
-		$request = $connection->prepare($query);
+		$request = $connection->prepare($sql);
 		$request->bindParam(':id', $id);
 		$request->execute();
 

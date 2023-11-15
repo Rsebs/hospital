@@ -16,7 +16,7 @@ if ($_POST) {
 	$id = $_POST['id'];
 
 	try {
-		$query =
+		$sql =
 			'UPDATE 
 			patients 
 		SET
@@ -31,7 +31,7 @@ if ($_POST) {
 		WHERE 
 			id = :id';
 
-		$request = $connection->prepare($query);
+		$request = $connection->prepare($sql);
 		$request->bindParam(':document', $document);
 		$request->bindParam(':first_name', $first_name);
 		$request->bindParam(':second_name', $second_name);
