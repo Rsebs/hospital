@@ -64,11 +64,8 @@ foreach ($resultGenders as $g) {
 				<div class="col-6">
 					<label id="total_registers"></label>
 				</div>
-				<div class="col-6" id="nav-pagination">
-					
-				</div>
+				<div class="col-6" id="nav-pagination"></div>
 			</div>
-			
 		</div>
 	</div>
 </main>

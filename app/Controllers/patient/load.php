@@ -144,28 +144,28 @@ if ($result->rowCount() > 0) {
 											<fieldset>
 												<legend class="text-secondary mb-4">Información de la Factura</legend>
 												<div class="input-group mb-4 col-lg">
-													<label class="input-group-text" for="doc_id_bill__'.$r['id'].'">Doctor Responsable</label>
-													<select class="form-select" name="doc_id" id="doc_id_bill__'.$r['id'].'" required>
+													<label class="input-group-text" for="doc_id_bill__' . $r['id'] . '">Doctor Responsable</label>
+													<select class="form-select" name="doc_id" id="doc_id_bill__' . $r['id'] . '" required>
 														<option value="" selected disabled>-- Selecciona --</option>
 														' . $optionPersonal . '
 													</select>
 												</div>
 												<div class="row">
 													<div class="input-group mb-4 col-lg">
-														<label class="input-group-text" for="medicine_id_bill__'.$r['id'].'">Medicina Recetada</label>
-														<select class="form-select" name="medicine_id" id="medicine_id_bill__'.$r['id'].'" required>
+														<label class="input-group-text" for="medicine_id_bill__' . $r['id'] . '">Medicina Recetada</label>
+														<select class="form-select" name="medicine_id" id="medicine_id_bill__' . $r['id'] . '" required>
 															<option value="" selected disabled>-- Selecciona --</option>
 															' . $optionMedicine . '
 														</select>
 													</div>
 													<div class="input-group mb-4 col-lg">
-														<label for="amount_bill__'.$r['id'].'" class="input-group-text">Cantidad</label>
-														<input type="number" name="amount" id="amount_bill__'.$r['id'].'" class="form-control" placeholder="Cantidad Recetada" min="1" required>
+														<label for="amount_bill__' . $r['id'] . '" class="input-group-text">Cantidad</label>
+														<input type="number" name="amount" id="amount_bill__' . $r['id'] . '" class="form-control" placeholder="Cantidad Recetada" min="1" required>
 													</div>
 												</div>
 												<div class="form-floating">
-													<textarea class="form-control" placeholder="" id="description_bill__'.$r['id'].'" name="description" style="height: 150px" required></textarea>
-													<label for="description_bill__'.$r['id'].'">Descripción de la Receta</label>
+													<textarea class="form-control" placeholder="" id="description_bill__' . $r['id'] . '" name="description" style="height: 150px" required></textarea>
+													<label for="description_bill__' . $r['id'] . '">Descripción de la Receta</label>
 												</div>
 											</fieldset>
 										</div>
@@ -196,24 +196,24 @@ if ($result->rowCount() > 0) {
 										<div class="mt-4">
 											<div class="row">
 												<div class="input-group mb-4 col-lg">
-													<label for="first_name_update__'.$r['id'].'" class="input-group-text">Nombres</label>
-													<input type="text" name="first_name" id="first_name_update__'.$r['id'].'" class="form-control" placeholder="Primero" value="' . $r['first_name'] . '" required>
-													<input type="text" name="second_name" id="second_name_update__'.$r['id'].'" class="form-control" placeholder="Segundo" value="' . $r['second_name'] . '">
+													<label for="first_name_update__' . $r['id'] . '" class="input-group-text">Nombres</label>
+													<input type="text" name="first_name" id="first_name_update__' . $r['id'] . '" class="form-control" placeholder="Primero" value="' . $r['first_name'] . '" required>
+													<input type="text" name="second_name" id="second_name_update__' . $r['id'] . '" class="form-control" placeholder="Segundo" value="' . $r['second_name'] . '">
 												</div>
 												<div class="input-group mb-4 col-lg">
-													<label for="first_last_name_update__'.$r['id'].'" class="input-group-text">Apellidos</label>
-													<input type="text" name="first_last_name" id="first_last_name_update__'.$r['id'].'" class="form-control" placeholder="Primero" value="' . $r['first_last_name'] . '" required>
-													<input type="text" name="second_last_name" id="second_last_name_update__'.$r['id'].'" class="form-control" placeholder="Segundo" value="' . $r['second_last_name'] . '">
+													<label for="first_last_name_update__' . $r['id'] . '" class="input-group-text">Apellidos</label>
+													<input type="text" name="first_last_name" id="first_last_name_update__' . $r['id'] . '" class="form-control" placeholder="Primero" value="' . $r['first_last_name'] . '" required>
+													<input type="text" name="second_last_name" id="second_last_name_update__' . $r['id'] . '" class="form-control" placeholder="Segundo" value="' . $r['second_last_name'] . '">
 												</div>
 											</div>
 											<div class="row">
 												<div class="input-group mb-4 col-lg">
-													<label for="document_update__'.$r['id'].'" class="input-group-text">Documento</label>
-													<input type="text" name="document" id="document_update__'.$r['id'].'" class="form-control" placeholder="Número de Documento" required value="' . $r['document'] . '">
+													<label for="document_update__' . $r['id'] . '" class="input-group-text">Documento</label>
+													<input type="text" name="document" id="document_update__' . $r['id'] . '" class="form-control" placeholder="Número de Documento" required value="' . $r['document'] . '">
 												</div>
 												<div class="input-group mb-4 col-lg">
-													<label class="input-group-text" for="gender_update__'.$r['id'].'">Género</label>
-													<select class="form-select" name="gender_id" id="gender_update__'.$r['id'].'" required>
+													<label class="input-group-text" for="gender_update__' . $r['id'] . '">Género</label>
+													<select class="form-select" name="gender_id" id="gender_update__' . $r['id'] . '" required>
 														<option value="" selected disabled>-- Selecciona --</option>
 														' . $optionGender . '
 													</select>
@@ -298,10 +298,10 @@ if ($output['total_registers'] > 0) {
 		if ($page == $i) {
 			$output['pagination'] .= '<li class="page-item active"><button class="page-link">' . $i . '</button></li>';
 		} else {
-			$output['pagination'] .= '<li class="page-item"><button class="page-link" onclick="getData('.$i.')">' . $i . '</button></li>';
+			$output['pagination'] .= '<li class="page-item"><button class="page-link" onclick="getData(' . $i . ')">' . $i . '</button></li>';
 		}
 	}
-	
+
 	$output['pagination'] .= '</ul>';
 	$output['pagination'] .= '</nav>';
 }

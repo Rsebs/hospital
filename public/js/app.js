@@ -22,11 +22,11 @@ function getData(page) {
 
 	const content = document.querySelector('#content');
 	const url = `${urlServer}/app/Controllers/${controller}/load.php`;
-	
+
 	if (page !== null) {
 		actualPage = page;
 	}
-	
+
 	const formData = new FormData();
 	formData.append('filter', inputFilter);
 	formData.append('registers', selectLimit);
@@ -35,8 +35,8 @@ function getData(page) {
 	const spinner = document.querySelector('#spinner');
 	spinner.classList.remove('d-none');
 
-	fetch(url, { 
-		method: 'POST', 
+	fetch(url, {
+		method: 'POST',
 		body: formData
 	})
 		.then(response => response.json())
