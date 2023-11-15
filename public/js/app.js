@@ -16,11 +16,17 @@ function getData() {
 
 	formData.append('filter', inputFilter);
 
+	const spinner = document.querySelector('#spinner');
+	spinner.classList.remove('d-none');
+	spinner.classList.add('d-flex');
+
 	fetch(url, {
 		method: 'POST',
 		body: formData
 	}).then(response => response.json())
 		.then(data => {
+			spinner.classList.remove('d-flex');
+			spinner.classList.add('d-none');
 			content.innerHTML = data;
 
 			// Válida si se desea eliminar un registro

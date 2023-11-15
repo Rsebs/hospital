@@ -19,9 +19,12 @@ validateSession();
 			<?php
 			include '../../includes/components/alerts.php';
 			?>
-			<form action="#" method="post">
-				<input type="text" class="form-control" id="filter" name="filter" placeholder="Buscar">
-			</form>
+			<div class="d-flex gap-4">
+				<input type="text" class="form-control w-50" id="filter" name="filter" placeholder="Buscar">
+				<div class="spinner-border" role="status" id="spinner">
+					<span class="visually-hidden">Loading...</span>
+				</div>
+			</div>
 			<div class="table-responsive">
 				<table class="table table-hover table-bordered mt-3">
 					<thead class="table-light">
