@@ -67,8 +67,8 @@ $total_filter = $row_filter['FOUND_ROWS()'];
 // Consulta para total de registros filtrados
 $sqlTotal = "SELECT count('id') AS count FROM $table ";
 $resultTotal = $connection->query($sqlTotal);
-$row_Total = $resultTotal->fetch(PDO::FETCH_ASSOC);
-$total_registers = $row_Total['count'];
+$row_total = $resultTotal->fetch(PDO::FETCH_ASSOC);
+$total_registers = $row_total['count'];
 
 // get personals. <option></option>
 $sql = 'SELECT * FROM personals';

@@ -12,13 +12,13 @@ require '../../config/db.php';
 
 // DELETE 
 if ($_POST) {
-	$user_id = $_POST['user_id'];
+	$id = $_POST['id'];
 
 	try {
-		$query = 'DELETE FROM users WHERE user_id = :user_id';
+		$query = 'DELETE FROM users WHERE id = :id';
 
 		$request = $connection->prepare($query);
-		$request->bindParam(':user_id', $user_id);
+		$request->bindParam(':id', $id);
 		$request->execute();
 
 		echo "
@@ -26,7 +26,7 @@ if ($_POST) {
 			document.addEventListener('DOMContentLoaded', () => showAlert('#alert', 'Usuario eliminado correctamente.'));
 		</script>
 		";
-		if ($user_id == $_SESSION['user_id']) {
+		if ($id == $_SESSION['id']) {
 			echo "
     		<script>
     			document.addEventListener('DOMContentLoaded', () => {
@@ -82,11 +82,11 @@ try {
 							foreach ($resultUser as $e) {
 								echo '
 									<tr>
-										<td>' . $e['user_id'] . '</td>
-										<td>' . $e['user_userName'] . '</td>
+										<td>' . $e['id'] . '</td>
+										<td>' . $e['user_name'] . '</td>
 										<td class="d-flex flex-sm-column flex-lg-row gap-2">
 											<form action="index.php" method="POST" data-type-form="delete">
-												<input type="hidden" name="user_id" value="' . $e['user_id'] . '">
+												<input type="hidden" name="id" value="' . $e['id'] . '">
 												<button type="submit" title="Borrar Género" class="btn btn-danger">
 													<img src="' . $imgRemove . '" alt="image remove">
 												</button>
