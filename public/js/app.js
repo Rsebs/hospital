@@ -18,22 +18,23 @@ function getData() {
 
 	const spinner = document.querySelector('#spinner');
 	spinner.classList.remove('d-none');
-	spinner.classList.add('d-flex');
 
-	fetch(url, {
-		method: 'POST',
+	fetch(url, { 
+		method: 'POST', 
 		body: formData
-	}).then(response => response.json())
+	})
+		.then(response => response.json())
 		.then(data => {
-			spinner.classList.remove('d-flex');
 			spinner.classList.add('d-none');
 			content.innerHTML = data;
 
 			// Válida si se desea eliminar un registro
-			document.querySelectorAll('[data-type-form="delete"]').forEach(form => {
+			const formsDelete = document.querySelectorAll('[data-type-form="delete"]');
+			formsDelete.forEach(form => {
 				form.addEventListener('submit', e => {
 					e.preventDefault();
-					form.firstElementChild.nextElementSibling.addEventListener('click', form.submit());
+					const btnFormDelete = form.firstElementChild.nextElementSibling;
+					btnFormDelete.addEventListener('click', form.submit());
 				});
 			});
 		})

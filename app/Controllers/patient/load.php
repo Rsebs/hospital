@@ -15,6 +15,16 @@ $columns = [
 	'contact_number',
 	'g.name'
 ];
+$columnsWhere = [
+	'document',
+	'first_name',
+	'second_name',
+	'first_last_name',
+	'second_last_name',
+	'email',
+	'contact_number',
+	'g.name'
+];
 
 $filter = isset($_POST['filter']) ? $_POST['filter'] : null;
 
@@ -22,8 +32,8 @@ $where = '';
 if ($filter !== null) {
 	$where = 'WHERE (';
 
-	for ($i = 0; $i < count($columns); $i++) {
-		$where .= $columns[$i] . " LIKE '%$filter%' OR ";
+	for ($i = 0; $i < count($columnsWhere); $i++) {
+		$where .= $columnsWhere[$i] . " LIKE '%$filter%' OR ";
 	}
 
 	$where = substr_replace($where, '', -3);
@@ -62,24 +72,26 @@ $html = '';
 if ($result->rowCount() > 0) {
 	foreach ($result as $r) {
 		$html .= '
-			<tr>
-				<td>' . $r['document'] . '</td>
-				<td>' . $r['first_name'] . ' ' . $r['second_name'] . ' ' . $r['first_last_name'] . ' ' . $r['second_last_name'] . '</td>
-				<td>' . $r['name'] . '</td>
-				<td>' . $r['email'] . '</td>
-				<td>' . $r['contact_number'] . '</td>
-				<td class="d-flex flex-sm-column flex-lg-row gap-2">
+		<tr>
+			<td>' . $r['document'] . '</td>
+			<td>' . $r['first_name'] . ' ' . $r['second_name'] . ' ' . $r['first_last_name'] . ' ' . $r['second_last_name'] . '
+			</td>
+			<td>' . $r['name'] . '</td>
+			<td>' . $r['email'] . '</td>
+			<td>' . $r['contact_number'] . '</td>
+			<td class="d-flex flex-sm-column flex-lg-row gap-2">
+				<div>
 					<button type="button" class="btn btn-secondary" title="Crear Factura" data-bs-toggle="modal" data-bs-target="#modal-create-bill-' . $r['id'] . '">
 						<img src="' . $imgBillAdd . '" alt="image remove">
 					</button>
-					<div class="modal fade" id="modal-create-bill-' . $r['id'] . '" tabindex="-1" aria-hidden="true">
-						<div class="modal-dialog modal-lg">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h1 class="modal-title fs-5">Crear Factura de Paciente</h1>
-									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-								</div>
-								<form action="' . $patientController . ' /createBill.php" method="POST" class="container">
+					<form action="' . $patientController . '/createBill.php" method="POST">
+						<div class="modal fade" id="modal-create-bill-' . $r['id'] . '" tabindex="-1" aria-hidden="true">
+							<div class="modal-dialog modal-lg modal-dialog-scrollable">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h1 class="modal-title fs-5">Crear Factura de Paciente</h1>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
 									<div class="modal-body">
 										<input type="hidden" name="id" id="id" value="' . $r['id'] . '">
 										<div class="mt-4">
@@ -131,21 +143,23 @@ if ($result->rowCount() > 0) {
 										<button type="submit" class="btn btn-success">Guardar Cambios</button>
 										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 									</div>
-								</form>
+								</div>
 							</div>
 						</div>
-					</div>
+					</form>
+				</div> <!-- Create Bill -->
+				<div>
 					<button type="button" class="btn btn-success" title="Editar" data-bs-toggle="modal" data-bs-target="#modal-edit-' . $r['id'] . '">
 						<img src="' . $imgEdit . '" alt="image remove">
 					</button>
-					<div class="modal fade" id="modal-edit-' . $r['id'] . '" tabindex="-1" aria-hidden="true">
-						<div class="modal-dialog modal-lg">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h1 class="modal-title fs-5">Editar Registro</h1>
-									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-								</div>
-								<form action="' . $patientController . '/update.php" method="POST" class="container">
+					<form action="' . $patientController . '/update.php" method="POST">
+						<div class="modal fade" id="modal-edit-' . $r['id'] . '" tabindex="-1" aria-hidden="true">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h1 class="modal-title fs-5">Editar Registro</h1>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
 									<div class="modal-body">
 										<input type="hidden" name="id" id="id" value="' . $r['id'] . '">
 										<div class="mt-4">
@@ -190,10 +204,12 @@ if ($result->rowCount() > 0) {
 										<button type="submit" class="btn btn-success">Guardar Cambios</button>
 										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 									</div>
-								</form>
+								</div>
 							</div>
 						</div>
-					</div>
+					</form>
+				</div> <!-- Edit -->
+				<div>
 					<button type="button" class="btn btn-danger" title="Eliminar" data-bs-toggle="modal" data-bs-target="#modal-delete-' . $r['id'] . '">
 						<img src="' . $imgRemove . '" alt="image remove">
 					</button>
@@ -219,8 +235,9 @@ if ($result->rowCount() > 0) {
 							</div>
 						</div>
 					</div>
-				</td>
-			</tr>';
+				</div> <!-- Delete -->
+			</td>
+		</tr>';
 	}
 } else {
 	$html .= '

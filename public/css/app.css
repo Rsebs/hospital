@@ -6,14 +6,14 @@ h1,
 h2,
 h3 {
 	font-family: 'Bitter', serif;
-	color: #2273a8;;
-	
+	color: #2273a8;
 }
 
 .bg-color-primary {
 	background-color: #4682A9;
 	color: #FFFFFF;
 }
+
 .bg-color-primary a {
 	color: #fff;
 }
@@ -30,7 +30,7 @@ h3 {
 .footer .logo {
 	height: 6.5rem;
 }
- 
+
 .form-center {
 	max-width: 80%;
 	margin: 0 auto;
@@ -39,9 +39,11 @@ h3 {
 .title {
 	font-size: 1.8rem;
 }
+
 .title span {
 	color: #4682A9;
 }
+
 .seeBill fieldset {
 	border: #C7C7C7 solid 1px;
 }
