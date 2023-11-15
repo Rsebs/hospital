@@ -1,20 +1,28 @@
 <?php
-require '../../config/db.php';
-include '../../includes/urls.php';
-
-$columns = ['p.id', 'document', 'first_name', 'second_name', 'first_last_name', 'second_last_name', 'gender_id', 'email', 'contact_number', 'g.name'];
+require '../../../config/db.php';
+include '../../../includes/urls.php';
 
 $table = 'patients';
+$columns = [
+	'p.id',
+	'document',
+	'first_name',
+	'second_name',
+	'first_last_name',
+	'second_last_name',
+	'gender_id',
+	'email',
+	'contact_number',
+	'g.name'
+];
 
 $filter = isset($_POST['filter']) ? $_POST['filter'] : null;
 
 $where = '';
-
 if ($filter !== null) {
 	$where = 'WHERE (';
 
-	$cont = count($columns);
-	for ($i = 0; $i < $cont; $i++) {
+	for ($i = 0; $i < count($columns); $i++) {
 		$where .= $columns[$i] . " LIKE '%$filter%' OR ";
 	}
 
@@ -22,12 +30,10 @@ if ($filter !== null) {
 	$where .= ')';
 }
 
-$sql = "SELECT " . implode(", ", $columns) . " FROM $table p INNER JOIN genders g ON p.gender_id = g.id $where ORDER BY id DESC";
-
+$sql = "SELECT " . implode(",", $columns) . " FROM $table p INNER JOIN genders g ON p.gender_id = g.id $where ORDER BY id DESC";
 $result = $connection->query($sql);
 
 $html = '';
-
 if ($result->rowCount() > 0) {
 	foreach ($result as $r) {
 		$html .= '
@@ -61,7 +67,7 @@ if ($result->rowCount() > 0) {
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-									<form action="destroy.php" method="POST" data-type-form="delete">
+									<form action="' . $patientController . '/destroy.php" method="POST" data-type-form="delete">
 										<input type="hidden" name="id" value="' . $r['id'] . '">
 										<button type="submit" class="btn btn-danger">Eliminar</button>
 									</form>

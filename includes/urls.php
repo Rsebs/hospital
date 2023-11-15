@@ -15,6 +15,9 @@ $urlLogin = "$urlServer/session/login.php";
 $urlSignUp = "$urlServer/session/signUp.php";
 $urlLogOut = "$urlServer/session/logOut.php";
 
+// URLs Controllers
+$patientController = "$urlServer/app/Controllers/patient";
+
 //URLs image
 // =========== LOGOS ===========
 $imgHospitalApp = "$urlServer/public/img/hospital-app.png";
@@ -29,3 +32,9 @@ $imgEyeOff = "$urlServer/public/img/eye-off.svg";
 // =========== OTHER ===========
 $imgAboutUs01 = "$urlServer/public/img/about-us-01.jpg";
 $imgAboutUs02 = "$urlServer/public/img/about-us-02.jpg";
+
+// =========== STATIC ===========
+$urlBootstrapCSS = "$urlServer/public/css/bootstrap.min.css";
+$urlBootstrapJS = "$urlServer/public/js/bootstrap.bundle.min.js";
+$urlCSS = "$urlServer/public/css/app.css";
+$urlJS = "$urlServer/public/js/app.js";

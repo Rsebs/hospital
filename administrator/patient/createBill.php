@@ -65,64 +65,31 @@ if ($_GET) {
 	}
 }
 
-// INSERT
-if ($_POST) {
-	$id = $_POST['id'];
-	$doc_id = $_POST['doc_id'];
-	$medicine_id = $_POST['medicine_id'];
-	$description = $_POST['description'];
-	$amount = $_POST['amount'];
 
-	try {
-		$query = 'INSERT INTO bills VALUES (NULL, :id, :doc_id, :medicine_id, :description, :amount)';
-
-		$request = $connection->prepare($query);
-		$request->bindParam(':id', $id);
-		$request->bindParam(':doc_id', $doc_id);
-		$request->bindParam(':medicine_id', $medicine_id);
-		$request->bindParam(':description', $description);
-		$request->bindParam(':amount', $amount);
-
-		$request->execute();
-
-		echo "
-		<script>
-			document.addEventListener('DOMContentLoaded', () => {
-			    showAlert('#alert', 'Registro agregado correctamente');
-			    redirect('$urlServer/administrator/patient/', 4000);
-			});
-		
-		</script>
-		";
-	} catch (Exception $error) {
-		echo $error;
-	}
-}
 ?>
 
 <main class="container">
-	<?php if ($_GET) { ?>
-		<form action="createBill.php" method="POST">
+		<form action="<?= $patientController ?>/createBill.php" method="POST">
 			<h1 class="fs-2 text-center">Crear Factura de Paciente</h1>
-			<input type="hidden" name="id" id="id" value="<?php echo $id; ?>">
+			<input type="hidden" name="id" id="id" value="<?= $id ?>">
 			<div class="mt-4">
 				<fieldset>
 					<legend class="text-secondary mb-4">Información del Paciente</legend>
 					<div class="row align-items-center">
 						<p class="mb-4 col-4 col-lg-2 fw-bold">Nombres:</p>
-						<p class="mb-4 col-8 col-lg"> <?php echo $first_name . ' ' . $second_name . ' ' . $first_last_name . ' ' . $second_last_name ?></p>
+						<p class="mb-4 col-8 col-lg"> <?= $first_name . ' ' . $second_name . ' ' . $first_last_name . ' ' . $second_last_name ?></p>
 						<p class="mb-4 col-4 col-lg-2 fw-bold">Documento:</p>
-						<p class="mb-4 col-8 col-lg"><?php echo $document ?></p>
+						<p class="mb-4 col-8 col-lg"><?= $document ?></p>
 					</div>
 					<div class="row align-items-center">
 						<p class="mb-4 col-4 col-lg-2 fw-bold">Email:</p>
-						<p class="mb-4 col-8 col-lg"><?php echo $email ?></p>
+						<p class="mb-4 col-8 col-lg"><?= $email ?></p>
 						<p class="mb-4 col-4 col-lg-2 fw-bold">Número de Teléfono:</p>
-						<p class="mb-4 col-8 col-lg"><?php echo $contact_number ?></p>
+						<p class="mb-4 col-8 col-lg"><?= $contact_number ?></p>
 					</div>
 					<div class="row align-items-center">
 						<p class="mb-4 col-4 col-lg-2 fw-bold">Género:</p>
-						<p class="mb-4 col-8 col-lg"><?php echo $gender_name ?></p>
+						<p class="mb-4 col-8 col-lg"><?= $gender_name ?></p>
 					</div>
 				</fieldset>
 				<fieldset>
@@ -166,10 +133,6 @@ if ($_POST) {
 				<a href="index.php" class="btn btn-danger w-25">Cancelar</a>
 			</div>
 		</form>
-	<?php } else { ?>
-		<div id="alert"></div>
-		<a href="index.php" class="btn btn-success d-block w-50 mt-5 mb-0 mx-auto">Volver</a>
-	<?php } ?>
 </main>
 
 <?php include '../../includes/footer.php'; ?>

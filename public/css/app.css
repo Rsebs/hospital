@@ -1,0 +1,51 @@
+body {
+	font-family: 'Nunito', sans-serif;
+}
+
+h1,
+h2,
+h3 {
+	font-family: 'Bitter', serif;
+	color: #2273a8;;
+	
+}
+
+.bg-color-primary {
+	background-color: #4682A9;
+	color: #FFFFFF;
+}
+.bg-color-primary a {
+	color: #fff;
+}
+
+.bg-color-light {
+	background-color: #F6F4EB;
+}
+
+.header .logo {
+	width: 2.5rem;
+	margin: 0 0.5rem;
+}
+
+.footer .logo {
+	height: 6.5rem;
+}
+ 
+.form-center {
+	max-width: 80%;
+	margin: 0 auto;
+}
+
+.title {
+	font-size: 1.8rem;
+}
+.title span {
+	color: #4682A9;
+}
+.seeBill fieldset {
+	border: #C7C7C7 solid 1px;
+}
+
+.seeBill legend {
+	border-bottom: #C7C7C7 solid 1px;
+}

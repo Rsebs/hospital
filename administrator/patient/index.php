@@ -5,7 +5,7 @@ include '../../includes/head.php';
 include '../../includes/functions.php';
 validateSession();
 ?>
-
+<input type="hidden" value="patient" id="controller">
 <main class="container">
 	<div class="card">
 		<div class="card-header bg-color-primary">
@@ -13,7 +13,7 @@ validateSession();
 		</div>
 		<div class="card-body">
 			<a href="create.php" class="btn btn-primary mb-3">
-				<img src="<?php echo $imgUserAdd ?>" alt="image add">
+				<img src="<?= $imgUserAdd ?>" alt="image add">
 				<p class="d-inline-block mx-2 my-0">Agregar Paciente</p>
 			</a>
 			<?php

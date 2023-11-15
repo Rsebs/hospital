@@ -8,9 +8,10 @@ if (inputFilter) {
 }
 
 function getData() {
+	const controller = document.querySelector('#controller').value;
 	const inputFilter = document.querySelector('#filter').value;
 	const content = document.querySelector('#content');
-	const url = 'load.php';
+	const url = `${urlServer}/app/Controllers/${controller}/load.php`;
 	const formData = new FormData();
 
 	formData.append('filter', inputFilter);
