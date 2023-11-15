@@ -1,20 +1,36 @@
 const urlServer = 'http://hospitaldev.test';
 
 // Peticion AJAX para las tablas
+let actualPage = 1;
 const inputFilter = document.querySelector('#filter');
 if (inputFilter) {
-	getData();
-	inputFilter.addEventListener('keyup', getData);
+	getData(actualPage);
+	inputFilter.addEventListener('keyup', () => {
+		getData(1);
+	});
+
+	const selectLimit = document.querySelector('#select_limit');
+	selectLimit.addEventListener('change', () => {
+		getData(actualPage);
+	});
 }
 
-function getData() {
+function getData(page) {
 	const controller = document.querySelector('#controller').value;
 	const inputFilter = document.querySelector('#filter').value;
+	const selectLimit = document.querySelector('#select_limit').value;
+
 	const content = document.querySelector('#content');
 	const url = `${urlServer}/app/Controllers/${controller}/load.php`;
+	
+	if (page !== null) {
+		actualPage = page;
+	}
+	
 	const formData = new FormData();
-
 	formData.append('filter', inputFilter);
+	formData.append('registers', selectLimit);
+	formData.append('page', actualPage);
 
 	const spinner = document.querySelector('#spinner');
 	spinner.classList.remove('d-none');
@@ -26,7 +42,14 @@ function getData() {
 		.then(response => response.json())
 		.then(data => {
 			spinner.classList.add('d-none');
-			content.innerHTML = data;
+			content.innerHTML = data.data;
+
+			const lblTotalRegisters = document.querySelector('#total_registers');
+			lblTotalRegisters.textContent = `Mostrando ${data.total_filter} de ${data.total_registers} registros`;
+
+			const navPagination = document.querySelector('#nav-pagination');
+			navPagination.innerHTML = data.pagination;
+
 
 			// Válida si se desea eliminar un registro
 			const formsDelete = document.querySelectorAll('[data-type-form="delete"]');

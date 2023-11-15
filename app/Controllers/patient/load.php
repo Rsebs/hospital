@@ -28,6 +28,7 @@ $columnsWhere = [
 
 $filter = isset($_POST['filter']) ? $_POST['filter'] : null;
 
+// Where
 $where = '';
 if ($filter !== null) {
 	$where = 'WHERE (';
@@ -40,9 +41,34 @@ if ($filter !== null) {
 	$where .= ')';
 }
 
+// Limit
+$limit = isset($_POST['registers']) ? $_POST['registers'] : 10;
+$page = isset($_POST['page']) ? $_POST['page'] : 0;
+
+if (!$page) {
+	$start = 0;
+	$page = 1;
+} else {
+	$start = ($page - 1) * $limit;
+}
+
+$sLimit = "LIMIT $start, $limit";
+
 // Consulta principal, get patients. HTML
-$sql = "SELECT " . implode(",", $columns) . " FROM $table p INNER JOIN genders g ON p.gender_id = g.id $where ORDER BY id DESC";
+$sql = "SELECT SQL_CALC_FOUND_ROWS " . implode(",", $columns) . " FROM $table p INNER JOIN genders g ON p.gender_id = g.id $where $sLimit";
 $result = $connection->query($sql);
+
+// Consulta para total de registros filtrados
+$sqlFilter = "SELECT FOUND_ROWS()";
+$resultFilter = $connection->query($sqlFilter);
+$row_filter = $resultFilter->fetch(PDO::FETCH_ASSOC);
+$total_filter = $row_filter['FOUND_ROWS()'];
+
+// Consulta para total de registros filtrados
+$sqlTotal = "SELECT count('id') AS count FROM $table ";
+$resultTotal = $connection->query($sqlTotal);
+$row_Total = $resultTotal->fetch(PDO::FETCH_ASSOC);
+$total_registers = $row_Total['count'];
 
 // get personals. <option></option>
 $sql = 'SELECT * FROM personals';
@@ -68,10 +94,15 @@ foreach ($resultGenders as $g) {
 	$optionGender .= '<option value="' . $g['id'] . '">' . $g['name'] . '</option>';
 }
 
-$html = '';
+$output = [];
+$output['total_registers'] = $total_registers;
+$output['total_filter'] = $total_filter;
+$output['data'] = '';
+$output['pagination'] = '';
+
 if ($result->rowCount() > 0) {
 	foreach ($result as $r) {
-		$html .= '
+		$output['data'] .= '
 		<tr>
 			<td>' . $r['document'] . '</td>
 			<td>' . $r['first_name'] . ' ' . $r['second_name'] . ' ' . $r['first_last_name'] . ' ' . $r['second_last_name'] . '
@@ -113,28 +144,28 @@ if ($result->rowCount() > 0) {
 											<fieldset>
 												<legend class="text-secondary mb-4">Información de la Factura</legend>
 												<div class="input-group mb-4 col-lg">
-													<label class="input-group-text" for="doc_id">Doctor Responsable</label>
-													<select class="form-select" name="doc_id" id="doc_id" required>
+													<label class="input-group-text" for="doc_id_bill__'.$r['id'].'">Doctor Responsable</label>
+													<select class="form-select" name="doc_id" id="doc_id_bill__'.$r['id'].'" required>
 														<option value="" selected disabled>-- Selecciona --</option>
 														' . $optionPersonal . '
 													</select>
 												</div>
 												<div class="row">
 													<div class="input-group mb-4 col-lg">
-														<label class="input-group-text" for="medicine_id">Medicina Recetada</label>
-														<select class="form-select" name="medicine_id" id="medicine_id" required>
+														<label class="input-group-text" for="medicine_id_bill__'.$r['id'].'">Medicina Recetada</label>
+														<select class="form-select" name="medicine_id" id="medicine_id_bill__'.$r['id'].'" required>
 															<option value="" selected disabled>-- Selecciona --</option>
 															' . $optionMedicine . '
 														</select>
 													</div>
 													<div class="input-group mb-4 col-lg">
-														<label for="amount" class="input-group-text">Cantidad</label>
-														<input type="contact_number" name="amount" id="amount" class="form-control" placeholder="Cantidad Recetada" min="1" required>
+														<label for="amount_bill__'.$r['id'].'" class="input-group-text">Cantidad</label>
+														<input type="number" name="amount" id="amount_bill__'.$r['id'].'" class="form-control" placeholder="Cantidad Recetada" min="1" required>
 													</div>
 												</div>
 												<div class="form-floating">
-													<textarea class="form-control" placeholder="Leave a comment here" id="description" name="description" style="height: 150px" required></textarea>
-													<label for="description">Descripción de la Receta</label>
+													<textarea class="form-control" placeholder="" id="description_bill__'.$r['id'].'" name="description" style="height: 150px" required></textarea>
+													<label for="description_bill__'.$r['id'].'">Descripción de la Receta</label>
 												</div>
 											</fieldset>
 										</div>
@@ -161,28 +192,28 @@ if ($result->rowCount() > 0) {
 										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
-										<input type="hidden" name="id" id="id" value="' . $r['id'] . '">
+										<input type="hidden" name="id" value="' . $r['id'] . '">
 										<div class="mt-4">
 											<div class="row">
 												<div class="input-group mb-4 col-lg">
-													<label for="first_name" class="input-group-text">Nombres</label>
-													<input type="text" name="first_name" id="first_name" class="form-control" placeholder="Primero" value="' . $r['first_name'] . '" required>
-													<input type="text" name="second_name" id="second_name" class="form-control" placeholder="Segundo" value="' . $r['second_name'] . '">
+													<label for="first_name_update__'.$r['id'].'" class="input-group-text">Nombres</label>
+													<input type="text" name="first_name" id="first_name_update__'.$r['id'].'" class="form-control" placeholder="Primero" value="' . $r['first_name'] . '" required>
+													<input type="text" name="second_name" id="second_name_update__'.$r['id'].'" class="form-control" placeholder="Segundo" value="' . $r['second_name'] . '">
 												</div>
 												<div class="input-group mb-4 col-lg">
-													<label for="first_last_name" class="input-group-text">Apellidos</label>
-													<input type="text" name="first_last_name" id="first_last_name" class="form-control" placeholder="Primero" value="' . $r['first_last_name'] . '" required>
-													<input type="text" name="second_last_name" id="second_last_name" class="form-control" placeholder="Segundo" value="' . $r['second_last_name'] . '">
+													<label for="first_last_name_update__'.$r['id'].'" class="input-group-text">Apellidos</label>
+													<input type="text" name="first_last_name" id="first_last_name_update__'.$r['id'].'" class="form-control" placeholder="Primero" value="' . $r['first_last_name'] . '" required>
+													<input type="text" name="second_last_name" id="second_last_name_update__'.$r['id'].'" class="form-control" placeholder="Segundo" value="' . $r['second_last_name'] . '">
 												</div>
 											</div>
 											<div class="row">
 												<div class="input-group mb-4 col-lg">
-													<label for="document" class="input-group-text">Documento</label>
-													<input type="text" name="document" id="document" class="form-control" placeholder="Número de Documento" required value="' . $r['document'] . '">
+													<label for="document_update__'.$r['id'].'" class="input-group-text">Documento</label>
+													<input type="text" name="document" id="document_update__'.$r['id'].'" class="form-control" placeholder="Número de Documento" required value="' . $r['document'] . '">
 												</div>
 												<div class="input-group mb-4 col-lg">
-													<label class="input-group-text" for="gender">Género</label>
-													<select class="form-select" name="gender_id" id="gender" required>
+													<label class="input-group-text" for="gender_update__'.$r['id'].'">Género</label>
+													<select class="form-select" name="gender_id" id="gender_update__'.$r['id'].'" required>
 														<option value="" selected disabled>-- Selecciona --</option>
 														' . $optionGender . '
 													</select>
@@ -190,12 +221,12 @@ if ($result->rowCount() > 0) {
 											</div>
 											<div class="row">
 												<div class="input-group mb-4 col-lg">
-													<label for="email" class="input-group-text">Email</label>
-													<input type="email" name="email" id="email" class="form-control" placeholder="Correo Electrónico" value="' . $r['email'] . '">
+													<label for="email_update__' . $r['id'] . '" class="input-group-text">Email</label>
+													<input type="email" name="email" id="email_update__' . $r['id'] . '" class="form-control" placeholder="Correo Electrónico" value="' . $r['email'] . '">
 												</div>
 												<div class="input-group mb-4 col-lg">
-													<label for="contact_number" class="input-group-text">Número de Teléfono</label>
-													<input type="tel" name="contact_number" id="contact_number" class="form-control" placeholder="Puede ser fijo o móvil" value="' . $r['contact_number'] . '">
+													<label for="contact_number_update__' . $r['id'] . '" class="input-group-text">Número de Teléfono</label>
+													<input type="tel" name="contact_number" id="contact_number_update__' . $r['id'] . '" class="form-control" placeholder="Puede ser fijo o móvil" value="' . $r['contact_number'] . '">
 												</div>
 											</div>
 										</div>
@@ -240,11 +271,39 @@ if ($result->rowCount() > 0) {
 		</tr>';
 	}
 } else {
-	$html .= '
+	$output['data'] .= '
 	<tr>
 		<td class="text-center" colspan="6">No hay resultados</td>
 	</tr>
 	';
 }
 
-echo json_encode($html, JSON_UNESCAPED_UNICODE);
+if ($output['total_registers'] > 0) {
+	$total_pages = ceil($output['total_registers'] / $limit);
+	$output['pagination'] .= '<nav>';
+	$output['pagination'] .= '<ul class="pagination justify-content-end">';
+
+	$first_number = 1;
+
+	if (($page - 4) > 1) {
+		$first_number = $page - 4;
+	}
+
+	$last_number = $first_number + 9;
+	if ($last_number > $total_pages) {
+		$last_number = $total_pages;
+	}
+
+	for ($i = $first_number; $i <= $last_number; $i++) {
+		if ($page == $i) {
+			$output['pagination'] .= '<li class="page-item active"><button class="page-link">' . $i . '</button></li>';
+		} else {
+			$output['pagination'] .= '<li class="page-item"><button class="page-link" onclick="getData('.$i.')">' . $i . '</button></li>';
+		}
+	}
+	
+	$output['pagination'] .= '</ul>';
+	$output['pagination'] .= '</nav>';
+}
+
+echo json_encode($output, JSON_UNESCAPED_UNICODE);
