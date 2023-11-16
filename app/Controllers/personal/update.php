@@ -1,5 +1,4 @@
 <?php
-
 include '../../../includes/urls.php';
 require '../../../config/db.php';
 
@@ -14,31 +13,25 @@ if ($_POST) {
 	$gender_id = $_POST['gender_id'];
 	$email = strtolower($_POST['email']);
 	$contact_number = $_POST['contact_number'];
+	$id = $_POST['id'];
 
 	try {
-		$sql =
-		'INSERT INTO patients (
-			document,
-			first_name, 
-			second_name,
-			first_last_name,
-			second_last_name, 
-			gender_id, 
-			email,
-			contact_number
-		) 
-		VALUES (
-			:document, 
-			:first_name, 
-			:second_name,
-			:first_last_name,
-			:second_last_name, 
-			:gender_id, 
-			:email,
-			:contact_number
-		)';
+		$query =
+		'UPDATE 
+			personals 
+		SET
+			document = :document,
+			first_name = :first_name, 
+			second_name = :second_name,
+			first_last_name = :first_last_name,
+			second_last_name = :second_last_name, 
+			gender_id = :gender_id, 
+			email = :email,
+			contact_number = :contact_number
+		WHERE 
+			id = :id';
 
-		$request = $connection->prepare($sql);
+		$request = $connection->prepare($query);
 		$request->bindParam(':document', $document);
 		$request->bindParam(':first_name', $first_name);
 		$request->bindParam(':second_name', $second_name);
@@ -47,17 +40,18 @@ if ($_POST) {
 		$request->bindParam(':gender_id', $gender_id);
 		$request->bindParam(':email', $email);
 		$request->bindParam(':contact_number', $contact_number);
+		$request->bindParam(':id', $id);
 
 		$request->execute();
 
-		$_SESSION['msg'] = 'Registro agregado correctamente';
+		$_SESSION['msg'] = 'Registro editado correctamente';
 		$_SESSION['type'] = 'success';
 
-		header("Location: $urlPatient");
+		header("Location: $urlPersonal");
 	} catch (Exception $error) {
-		$_SESSION['msg'] = 'No se pudo agregar el registro, contacta para más información';
+		$_SESSION['msg'] = 'No se pudo editar el registro, contacta para más información';
 		$_SESSION['type'] = 'danger';
 
-		header("Location: $urlPatient");
+		header("Location: $urlPersonal");
 	}
 }

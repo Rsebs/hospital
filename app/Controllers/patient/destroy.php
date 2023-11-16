@@ -19,7 +19,7 @@ if ($_POST) {
 
 		header("Location: $urlPatient");
 	} catch (Exception $error) {
-		$_SESSION['msg'] = 'No se pudo eliminar el registro, contacta para más información ';
+		$_SESSION['msg'] = 'No se pudo eliminar el registro, contacta para más información';
 		$_SESSION['type'] = 'danger';
 
 		header("Location: $urlPatient");

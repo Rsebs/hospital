@@ -16,9 +16,9 @@ if ($_POST) {
 	$contact_number = $_POST['contact_number'];
 
 	try {
-		$sql =
-		'INSERT INTO patients (
-			document,
+		$query =
+		'INSERT INTO personals (
+			document, 
 			first_name, 
 			second_name,
 			first_last_name,
@@ -26,8 +26,8 @@ if ($_POST) {
 			gender_id, 
 			email,
 			contact_number
-		) 
-		VALUES (
+		)
+		VALUES( 
 			:document, 
 			:first_name, 
 			:second_name,
@@ -38,7 +38,7 @@ if ($_POST) {
 			:contact_number
 		)';
 
-		$request = $connection->prepare($sql);
+		$request = $connection->prepare($query);
 		$request->bindParam(':document', $document);
 		$request->bindParam(':first_name', $first_name);
 		$request->bindParam(':second_name', $second_name);
@@ -53,11 +53,11 @@ if ($_POST) {
 		$_SESSION['msg'] = 'Registro agregado correctamente';
 		$_SESSION['type'] = 'success';
 
-		header("Location: $urlPatient");
+		header("Location: $urlPersonal");
 	} catch (Exception $error) {
 		$_SESSION['msg'] = 'No se pudo agregar el registro, contacta para más información';
 		$_SESSION['type'] = 'danger';
 
-		header("Location: $urlPatient");
+		header("Location: $urlPersonal");
 	}
 }
