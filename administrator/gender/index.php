@@ -1,64 +1,41 @@
 <?php
 $page = 'Género';
 include '../../includes/head.php';
-?>
 
-<?php
 include '../../includes/functions.php';
 validateSession();
-
-include '../../includes/urls.php';
-require '../../config/db.php';
-
-// DELETE 
-if ($_POST) {
-	$gender_id = $_POST['gender_id'];
-
-	try {
-		$query = 'DELETE FROM genders WHERE gender_id = :gender_id';
-
-		$request = $connection->prepare($query);
-		$request->bindParam(':gender_id', $gender_id);
-		$request->execute();
-
-		echo "
-		<script>
-			document.addEventListener('DOMContentLoaded', () => showAlert('#alert', 'Registro eliminado correctamente'));
-		</script>
-		";
-	} catch (Exception $error) {
-		echo "
-		<script>
-			document.addEventListener('DOMContentLoaded', () => showAlert('#alert', 'No se pudo eliminar el registro, contacta para más información', 'error'));
-		</script>
-		";
-	}
-}
-
-try {
-	$query = 'SELECT * FROM genders';
-
-	$request = $connection->prepare($query);
-	$request->execute();
-
-	$resultGender = $connection->query($query);
-} catch (Exception $error) {
-	echo $error;
-}
-
 ?>
-
+<input type="hidden" value="gender" id="controller">
 <main class="container">
 	<div class="card">
 		<div class="card-header bg-color-primary">
-			<p class="m-0">Género</p>
+			<p class="my-1 text-center fs-5">Personal</p>
 		</div>
 		<div class="card-body">
-			<a href="create.php" class="btn btn-primary">
-				<img src="<?php echo $imgAdd ?>" alt="image add">
+			<button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modal-create">
+				<img src="<?= $imgAdd ?>" alt="image add">
 				<p class="d-inline-block mx-2 my-0">Agregar Género</p>
-			</a>
-			<div id="alert"></div>
+			</button>
+			<?php
+			include '../../includes/components/alerts.php';
+			?>
+			<div class="d-flex flex-column flex-md-row gap-3 justify-content-between">
+				<div class="form-floating d-flex gap-4 flex-grow-1">
+					<input type="text" class="form-control" id="filter" placeholder="">
+					<label for="filter">Buscar</label>
+					<div class="spinner-border" role="status" id="spinner">
+						<span class="visually-hidden">Loading...</span>
+					</div>
+				</div>
+				<div class="form-floating flex-fill">
+					<select class="form-select" id="select_limit" aria-label="Floating label select example">
+						<option value="10">10</option>
+						<option value="25">25</option>
+						<option value="50">50</option>
+					</select>
+					<label for="select_limit">Cantidad de registros</label>
+				</div>
+			</div>
 			<div class="table-responsive">
 				<table class="table table-hover table-bordered mt-3">
 					<thead class="table-light">
@@ -66,45 +43,49 @@ try {
 							<th>Id</th>
 							<th>Nombre</th>
 							<th>Código</th>
+							<th>Fecha Agregado</th>
 							<th>Acciones</th>
 						</tr>
 					</thead>
-					<tbody>
-						<?php
-						if ($resultGender->rowCount() > 0) {
-							foreach ($resultGender as $e) {
-								echo '
-									<tr>
-										<td>' . $e['gender_id'] . '</td>
-										<td>' . $e['gender_name'] . '</td>
-										<td>' . $e['gender_cod'] . '</td>
-										<td class="d-flex flex-sm-column flex-lg-row gap-2">
-											<a href="edit.php?gender_id=' . $e['gender_id'] . '" title="Editar Género" class="btn btn-success">
-												<img src="' . $imgEdit . '" alt="image edit">
-											</a>
-											<form action="index.php" method="POST" data-type-form="delete">
-												<input type="hidden" name="gender_id" value="' . $e['gender_id'] . '">
-												<button type="submit" title="Borrar Género" class="btn btn-danger">
-													<img src="' . $imgRemove . '" alt="image remove">
-												</button>
-											</form>
-										</td>
-									</tr>
-								';
-							}
-						} else {
-							echo '
-								<tr>
-									<td class="text-center" colspan="6">Aún no hay datos</td>
-								</tr>
-							';
-						}
-						?>
-					</tbody>
+					<tbody id="content"></tbody>
 				</table>
+			</div>
+			<div class="row">
+				<div class="col-6">
+					<label id="total_registers"></label>
+				</div>
+				<div class="col-6" id="nav-pagination"></div>
 			</div>
 		</div>
 	</div>
 </main>
+<form action="<?= $genderController ?>/create.php" method="POST" class="container">
+	<div class="modal fade" id="modal-create" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5">Agregar Registro</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="mt-4 row">
+						<div class="col-md input-group mb-4">
+							<label for="name" class="input-group-text">Nombre</label>
+							<input type="text" name="name" class="form-control" placeholder="Ej: Masculino" required>
+						</div>
+						<div class="col-md input-group mb-4">
+							<label for="cod" class="input-group-text">Código</label>
+							<input type="text" name="cod" class="form-control" placeholder="Ej: M" required>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-success">Agregar</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
 
 <?php include '../../includes/footer.php'; ?>

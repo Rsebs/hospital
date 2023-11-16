@@ -19,6 +19,7 @@ $urlLogOut = "$urlServer/session/logOut.php";
 $patientController = "$urlServer/app/Controllers/patient";
 $personalController = "$urlServer/app/Controllers/personal";
 $medicineController = "$urlServer/app/Controllers/medicine";
+$genderController = "$urlServer/app/Controllers/gender";
 $userController = "$urlServer/app/Controllers/user";
 
 //URLs image
