@@ -10,17 +10,6 @@ validateSession();
 include '../../includes/urls.php';
 include '../../config/db.php';
 
-try {
-	$query = 'SELECT p.*, g.name FROM personals p INNER JOIN genders g ON p.gender_id = g.id';
-
-	$request = $connection->prepare($query);
-	$request->execute();
-
-	$resultDoctor = $connection->query($query);
-} catch (Exception $error) {
-	echo $error;
-}
-
 $query = 'SELECT * FROM genders';
 $resultGenders = $connection->query($query);
 $optionGender = '';

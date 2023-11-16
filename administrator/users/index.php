@@ -1,26 +1,9 @@
 <?php
 $page = 'Usuarios';
 include '../../includes/head.php';
-?>
 
-<?php
 include '../../includes/functions.php';
 validateSession();
-
-include '../../includes/urls.php';
-require '../../config/db.php';
-
-try {
-	$query = 'SELECT * FROM users';
-
-	$request = $connection->prepare($query);
-	$request->execute();
-
-	$resultUser = $connection->query($query);
-} catch (Exception $rrror) {
-	echo $rrror;
-}
-
 ?>
 <input type="hidden" value="user" id="controller">
 <main class="container">

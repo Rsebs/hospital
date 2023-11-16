@@ -41,7 +41,7 @@ session_start();
 								<div class="dropdown-menu" aria-labelledby="dropdownId">
 									<a class="dropdown-item" href="<?= $urlPersonal ?>">Personal</a>
 									<a class="dropdown-item" href="<?= $urlPatient ?>">Pacientes</a>
-									<a class="dropdown-item" href="<?= $urlMedicine ?>">Medicina</a>
+									<a class="dropdown-item" href="<?= $urlMedicine ?>">Medicamentos</a>
 									<a class="dropdown-item" href="<?= $urlGender ?>">Géneros</a>
 									<a class="dropdown-item" href="<?= $urlUsers ?>">Usuarios</a>
 								</div>
