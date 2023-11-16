@@ -165,7 +165,7 @@ if ($result->rowCount() > 0) {
 						data-bs-target="#modal-create-bill-' . $r['id'] . '">
 						<img src="' . $imgBillAdd . '" alt="image remove">
 					</button>
-					<form action="' . $patientController . '/createBill.php" method="POST">
+					<form action="' . $billController . '/create.php" method="POST">
 						<div class="modal fade" id="modal-create-bill-' . $r['id'] . '" tabindex="-1" aria-hidden="true">
 							<div class="modal-dialog modal-lg modal-dialog-scrollable">
 								<div class="modal-content">

@@ -3,6 +3,7 @@ $urlServer = "http://hospitaldev.test";
 
 // URLs App
 $urlIndex = $urlServer;
+$urlBill = "$urlServer/administrator/bill/";
 $urlPersonal = "$urlServer/administrator/personal/";
 $urlPatient = "$urlServer/administrator/patient/";
 $urlMedicine = "$urlServer/administrator/medicine/";
@@ -16,6 +17,7 @@ $urlSignUp = "$urlServer/session/signUp.php";
 $urlLogOut = "$urlServer/session/logOut.php";
 
 // URLs Controllers
+$billController = "$urlServer/app/Controllers/bill";
 $patientController = "$urlServer/app/Controllers/patient";
 $personalController = "$urlServer/app/Controllers/personal";
 $medicineController = "$urlServer/app/Controllers/medicine";

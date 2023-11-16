@@ -39,6 +39,7 @@ session_start();
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administrar</a>
 								<div class="dropdown-menu" aria-labelledby="dropdownId">
+									<a class="dropdown-item" href="<?= $urlBill ?>">Facturas</a>
 									<a class="dropdown-item" href="<?= $urlPersonal ?>">Personal</a>
 									<a class="dropdown-item" href="<?= $urlPatient ?>">Pacientes</a>
 									<a class="dropdown-item" href="<?= $urlMedicine ?>">Medicamentos</a>
