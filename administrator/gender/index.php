@@ -9,7 +9,7 @@ validateSession();
 <main class="container">
 	<div class="card">
 		<div class="card-header bg-color-primary">
-			<p class="my-1 text-center fs-5">Personal</p>
+			<p class="my-1 text-center fs-5">Géneros</p>
 		</div>
 		<div class="card-body">
 			<button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modal-create">
