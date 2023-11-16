@@ -18,7 +18,7 @@ foreach ($resultGenders as $g) {
 <main class="container">
 	<div class="card">
 		<div class="card-header bg-color-primary">
-			<p class="m-0">Pacientes</p>
+			<p class="my-1 text-center fs-5">Pacientes</p>
 		</div>
 		<div class="card-body">
 			<button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modal-create">
@@ -42,7 +42,7 @@ foreach ($resultGenders as $g) {
 						<option value="25">25</option>
 						<option value="50">50</option>
 					</select>
-					<label for="select_limit">Mostrar cantidad de registros</label>
+					<label for="select_limit">Cantidad de registros</label>
 				</div>
 			</div>
 			<div class="table-responsive">
@@ -54,6 +54,7 @@ foreach ($resultGenders as $g) {
 							<th>Género</th>
 							<th>Email</th>
 							<th>Número de teléfono</th>
+							<th>Fecha de Ingreso</th>
 							<th>Acciones</th>
 						</tr>
 					</thead>

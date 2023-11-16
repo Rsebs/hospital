@@ -41,6 +41,7 @@ function getData(page) {
 	})
 		.then(response => response.json())
 		.then(data => {
+			console.log(data.data);
 			spinner.classList.add('d-none');
 			content.innerHTML = data.data;
 

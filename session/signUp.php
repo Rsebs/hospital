@@ -15,7 +15,7 @@ if ($_POST) {
 	$user_hash_pass = password_hash($user_pass, PASSWORD_BCRYPT);
 
 	try {
-		$query = 'INSERT INTO users VALUES(NULL, :user_name, :user_hash_pass)';
+		$query = 'INSERT INTO users(user_name, user_pass) VALUES(:user_name, :user_hash_pass)';
 
 		$request = $connection->prepare($query);
 		$request->bindParam(':user_name', $user_name);

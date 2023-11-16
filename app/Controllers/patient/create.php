@@ -17,10 +17,17 @@ if ($_POST) {
 
 	try {
 		$sql =
-			'INSERT INTO 
-			patients 
-		VALUES(
-			NULL, 
+		'INSERT INTO patients (
+			document,
+			first_name, 
+			second_name,
+			first_last_name,
+			second_last_name, 
+			gender_id, 
+			email,
+			contact_number
+		) 
+		VALUES (
 			:document, 
 			:first_name, 
 			:second_name,

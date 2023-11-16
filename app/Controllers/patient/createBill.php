@@ -6,18 +6,32 @@ require '../../../config/db.php';
 session_start();
 
 if ($_POST) {
-	$id = $_POST['id'];
-	$doc_id = $_POST['doc_id'];
+	$pat_id = $_POST['pat_id'];
+	$per_id = $_POST['per_id'];
 	$medicine_id = $_POST['medicine_id'];
 	$description = $_POST['description'];
 	$amount = $_POST['amount'];
 
 	try {
-		$sql = 'INSERT INTO bills VALUES (NULL, :id, :doc_id, :medicine_id, :description, :amount)';
+		$sql = 
+		'INSERT INTO bills (
+			pat_id,
+			per_id,
+			medicine_id,
+			description,
+			amount
+		) 
+		VALUES (
+			:pat_id,
+			:per_id,
+			:medicine_id,
+			:description,
+			:amount
+		)';
 
 		$request = $connection->prepare($sql);
-		$request->bindParam(':id', $id);
-		$request->bindParam(':doc_id', $doc_id);
+		$request->bindParam(':pat_id', $pat_id);
+		$request->bindParam(':per_id', $per_id);
 		$request->bindParam(':medicine_id', $medicine_id);
 		$request->bindParam(':description', $description);
 		$request->bindParam(':amount', $amount);

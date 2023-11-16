@@ -15,7 +15,7 @@ if ($_POST) {
 	$doc_id = $_POST['doc_id'];
 
 	try {
-		$query = 'DELETE FROM doctors WHERE doc_id = :doc_id';
+		$query = 'DELETE FROM personals WHERE doc_id = :doc_id';
 
 		$request = $connection->prepare($query);
 		$request->bindParam(':doc_id', $doc_id);
@@ -36,7 +36,7 @@ if ($_POST) {
 }
 
 try {
-	$query = 'SELECT d.*, g.gender_name FROM doctors d INNER JOIN genders g ON d.gender_id = g.gender_id';
+	$query = 'SELECT p.*, g.name FROM personals p INNER JOIN genders g ON p.gender_id = g.id';
 
 	$request = $connection->prepare($query);
 	$request->execute();

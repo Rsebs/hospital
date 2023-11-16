@@ -17,8 +17,7 @@ if ($_POST) {
 
 	try {
 		$sql =
-			'UPDATE 
-			patients 
+		'UPDATE patients 
 		SET
 			document = :document,
 			first_name = :first_name, 
