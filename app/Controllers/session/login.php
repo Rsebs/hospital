@@ -3,6 +3,7 @@ include '../../../includes/urls.php';
 require '../../../config/db.php';
 
 session_start();
+date_default_timezone_set('America/Bogota');
 
 if ($_POST) {
 	$user_name = $_POST['user_name'];

@@ -17,10 +17,9 @@ if (inputFilter) {
 
 function getData(page) {
 	const controller = document.querySelector('#controller').value;
+	const content = document.querySelector('#content');
 	const inputFilter = document.querySelector('#filter').value;
 	const selectLimit = document.querySelector('#select_limit').value;
-
-	const content = document.querySelector('#content');
 	const url = `${urlServer}/app/Controllers/${controller}/load.php`;
 
 	if (page !== null) {
@@ -50,7 +49,6 @@ function getData(page) {
 			const navPagination = document.querySelector('#nav-pagination');
 			navPagination.innerHTML = data.pagination;
 
-
 			// Válida si se desea eliminar un registro
 			const formsDelete = document.querySelectorAll('[data-type-form="delete"]');
 			formsDelete.forEach(form => {
@@ -64,30 +62,10 @@ function getData(page) {
 		.catch(err => console.log(err));
 }
 
-// Muestra una alerta al usuario
-function showAlert(ref, msg, type) {
-	const divAlert = document.createElement('div');
-	divAlert.classList.add('alert', 'my-3');
-
-	if (type === 'error') {
-		divAlert.classList.add('alert-danger');
-		divAlert.textContent = msg;
-
-		document.querySelector(ref).appendChild(divAlert);
-
-		return;
-	}
-
-	divAlert.classList.add('alert-success');
-	divAlert.textContent = msg;
-
-	document.querySelector(ref).appendChild(divAlert);
-}
-
 // Form Session
 const formSession = document.querySelector('[data-type-form="session"]');
 if (formSession) {
-	// Válida si las contraseñas coinciden
+	
 	formSession.addEventListener('submit', validatePasswordMatch);
 
 	// Muestra la contraseña en el input
@@ -110,6 +88,7 @@ if (formSession) {
 
 }
 
+// Válida si las contraseñas coinciden
 function validatePasswordMatch(e) {
 	e.preventDefault();
 
