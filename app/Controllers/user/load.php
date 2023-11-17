@@ -127,7 +127,7 @@ if ($result->rowCount() > 0) {
 									$output['data'] .= '<p>¿Estás seguro que quieres eliminar el siguiente registro?</p>
 									<p><strong>Nombre de usuario: </strong>' . $r['user_name'] . '</p>
 									<p><strong>Fecha creado: </strong>' . $r['create_date'] . '</p>
-									<p><strong>Último movimiento: </strong>' . $r['edit_date'] . '</p>
+									<p><strong>Último inicio de Sesión: </strong>' . $r['last_login'] . '</p>
 								</div>
 								<div class="modal-footer">
 									<form action="' . $userController . '/destroy.php" method="POST" data-type-form="delete">
