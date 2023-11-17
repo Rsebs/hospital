@@ -3,19 +3,11 @@ $page = 'Contacto';
 include 'includes/head.php';
 ?>
 
-<?php
-if ($_POST) {
-	echo "
-	<script>
-		document.addEventListener('DOMContentLoaded', () => showAlert('#alert', 'Gracias por comunicarnos con nosotros, espera nuestra respuesta!'));
-	</script>
-	";
-}
-?>
-
 <main class="container">
-	<div id="alert" class="text-center"></div>
-	<form action="contact.php" method="POST" class="form-center">
+	<?php
+	include 'includes/components/alerts.php';
+	?>
+	<form action="<?= $contactController ?>/email.php" method="POST" class="form-center">
 		<h1 class="text-center">Contacto</h1>
 		<p class="text-center">Utiliza el siguiente formulario para ponerte en contacto con nosotros</p>
 		<div class="row">

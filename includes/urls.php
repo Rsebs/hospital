@@ -13,8 +13,8 @@ $urlAboutUs = "$urlServer/aboutUs.php";
 $urlContact = "$urlServer/contact.php";
 
 $urlLogin = "$urlServer/session/login.php";
-$urlSignUp = "$urlServer/session/signUp.php";
-$urlLogOut = "$urlServer/session/logOut.php";
+$urlSignUp = "$urlServer/session/sign-up.php";
+$urlLogOut = "$urlServer/app/Controllers/session/logOut.php";
 
 // URLs Controllers
 $billController = "$urlServer/app/Controllers/bill";
@@ -23,6 +23,8 @@ $personalController = "$urlServer/app/Controllers/personal";
 $medicineController = "$urlServer/app/Controllers/medicine";
 $genderController = "$urlServer/app/Controllers/gender";
 $userController = "$urlServer/app/Controllers/user";
+$sessionController = "$urlServer/app/Controllers/session";
+$contactController = "$urlServer/app/Controllers/contact";
 
 //URLs image
 // =========== LOGOS ===========

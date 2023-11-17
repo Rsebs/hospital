@@ -8,7 +8,8 @@ $columns = [
 	'id',
 	'user_name',
 	'create_date',
-	'edit_date'
+	'edit_date',
+	'last_login'
 ];
 $columnsWhere = [
 	'id',
@@ -94,10 +95,10 @@ if ($result->rowCount() > 0) {
 										<legend class="text-secondary mb-4">Información de ' . $r['user_name'] . '</legend>
 										<p class="mb-4"><strong>Nombre de usuario: </strong>' . $r['user_name'] . '</p>
 										<div class="row align-items-center">
-											<p class="mb-4 col-4 col-lg-2 fw-bold">Fecha de ingreso:</p>
+											<p class="mb-4 col-4 col-lg-2 fw-bold">Usuario creado:</p>
 											<p class="mb-4 col-8 col-lg">' . $r['create_date'] . '</p>
-											<p class="mb-4 col-4 col-lg-2 fw-bold">Último movimiento:</p>
-											<p class="mb-4 col-8 col-lg">' . $r['edit_date'] . '</p>
+											<p class="mb-4 col-4 col-lg-2 fw-bold">Último inicio de Sesión:</p>
+											<p class="mb-4 col-8 col-lg">' . $r['last_login'] . '</p>
 										</div>
 									</fieldset>
 								</div>
