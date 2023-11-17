@@ -31,8 +31,9 @@ if ($_POST) {
 				WHERE 
 					id = :id';
 
+				$nowDate = date('Y-m-d H:i:s');
 				$request = $connection->prepare($query);
-				$request->bindParam(':last_login', date('Y-m-d H:i:s'));
+				$request->bindParam(':last_login', $nowDate);
 				$request->bindParam(':id', $_SESSION['id']);
 
 				$request->execute();
@@ -54,4 +55,3 @@ if ($_POST) {
 		header("Location: $urlLogin");
 	}
 }
-?>

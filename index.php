@@ -64,7 +64,7 @@ $totalUser = $row_total['total'];
 						<div class="card-body">
 							<h5 class="card-title">Facturas</h5>
 							<p class="card-text">Cantidad de registros: <?= $totalBill ?></p>
-							<p class="card-text"><small class="text-body-secondary">Last updated 2020-14-02</small></p>
+							<p class="card-text"><small class="text-body-secondary">Mira los últimos registros</small></p>
 						</div>
 					</div>
 				</div>
@@ -90,7 +90,7 @@ $totalUser = $row_total['total'];
 						<div class="card-body">
 							<h5 class="card-title">Pacientes</h5>
 							<p class="card-text">Cantidad de registros: <?= $totalPatient ?></p>
-							<p class="card-text"><small class="text-body-secondary">Last updated 2020-14-02</small></p>
+							<p class="card-text"><small class="text-body-secondary">Mira los últimos registros</small></p>
 						</div>
 					</div>
 				</div>
@@ -115,7 +115,7 @@ $totalUser = $row_total['total'];
 						<div class="card-body">
 							<h5 class="card-title">Personal</h5>
 							<p class="card-text">Cantidad de registros: <?= $totalPersonal ?></p>
-							<p class="card-text"><small class="text-body-secondary">Last updated 2020-14-02</small></p>
+							<p class="card-text"><small class="text-body-secondary">Mira los últimos registros</small></p>
 						</div>
 					</div>
 				</div>
@@ -152,7 +152,7 @@ $totalUser = $row_total['total'];
 						<div class="card-body">
 							<h5 class="card-title">Géneros</h5>
 							<p class="card-text">Cantidad de registros: <?= $totalGender ?></p>
-							<p class="card-text"><small class="text-body-secondary">Last updated 2020-14-02</small></p>
+							<p class="card-text"><small class="text-body-secondary">Mira los últimos registros</small></p>
 						</div>
 					</div>
 				</div>
@@ -174,7 +174,7 @@ $totalUser = $row_total['total'];
 						<div class="card-body">
 							<h5 class="card-title">Medicamentos</h5>
 							<p class="card-text">Cantidad de registros: <?= $totalMedicine ?></p>
-							<p class="card-text"><small class="text-body-secondary">Last updated 2020-14-02</small></p>
+							<p class="card-text"><small class="text-body-secondary">Mira los últimos registros</small></p>
 						</div>
 					</div>
 				</div>
@@ -198,7 +198,7 @@ $totalUser = $row_total['total'];
 						<div class="card-body">
 							<h5 class="card-title">Usuarios</h5>
 							<p class="card-text">Cantidad de registros: <?= $totalUser ?></p>
-							<p class="card-text"><small class="text-body-secondary">Last updated 2020-14-02</small></p>
+							<p class="card-text"><small class="text-body-secondary">Mira los últimos registros</small></p>
 						</div>
 					</div>
 				</div>

@@ -4,7 +4,7 @@ include '../includes/head.php';
 ?>
 
 <main class="container">
-	<form action="<?= $sessionController ?>/login.php" method="POST" class="form-center" data-type-form="session">
+	<form action="<?= $sessionController ?>/login.php" method="POST" class="form-center">
 		<h1 class="text-center mb-4">Inicia Sesión</h1>
 		<div class="row">
 			<div class="col-lg input-group mb-4">
@@ -13,7 +13,7 @@ include '../includes/head.php';
 			</div>
 			<div class="col-lg input-group mb-4">
 				<label class="input-group-text" for="user_pass">Contraseña</label>
-				<input type="password" class="form-control" id="user_pass" name="user_pass" placeholder="Tu contraseña" required>
+				<input type="password" class="form-control" name="user_pass" placeholder="Tu contraseña" required>
 				<button id="btnShowPassword" type="button" class="btn btn-secondary" data-type-btn="show-password">
 					<img src="<?= $imgEye; ?>" alt="image eye" title="Mostrar Contraseña">
 				</button>

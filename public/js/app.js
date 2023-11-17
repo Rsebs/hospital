@@ -65,7 +65,7 @@ function getData(page) {
 // Form Session
 const formSession = document.querySelector('[data-type-form="session"]');
 if (formSession) {
-	
+
 	formSession.addEventListener('submit', validatePasswordMatch);
 
 	// Muestra la contraseña en el input
@@ -92,18 +92,34 @@ if (formSession) {
 function validatePasswordMatch(e) {
 	e.preventDefault();
 
-	const inputPasswordVerify = document.querySelector('#user_passwordVerify');
+	const inputPassword = document.querySelector('#user_pass');
+	const inputPasswordVerify = document.querySelector('#user_passVerify');
 
-	if (inputPasswordVerify) {
-		const inputPassword = document.querySelector('#user_password');
+	if (inputPassword.value !== inputPasswordVerify.value) {
+		showAlert('#alert', 'Los campos de contraseñas no coinciden', 'danger');
+		return
+	}
+	formSession.submit();
+}
 
-		if (inputPassword.value === inputPasswordVerify.value) {
-			formSession.submit();
-		} else {
-			showAlert('#alert', 'Los campos de contraseñas no coinciden', 'error');
-		}
-	} else {
-		formSession.submit();
+// Muestra una alerta al usuario
+function showAlert(ref, msg, type) {
+	const alert = document.querySelector('.alert.alert-dismissible');
+
+	if (!alert) {
+		const divAlert = document.createElement('div');
+		divAlert.classList.add('alert', `alert-${type}`, 'alert-dismissible', 'fade', 'show');
+		divAlert.role = 'alert';
+
+		const btnDismiss = document.createElement('button');
+		btnDismiss.type = 'button';
+		btnDismiss.classList.add('btn-close');
+		btnDismiss.dataset.bsDismiss = 'alert';
+
+		divAlert.textContent = msg;
+		divAlert.appendChild(btnDismiss);
+
+		document.querySelector(ref).appendChild(divAlert);
 	}
 }
 

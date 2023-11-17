@@ -15,14 +15,14 @@ include '../includes/head.php';
 				<label class="input-group-text" for="user_pass">Contraseña</label>
 				<input type="password" class="form-control" id="user_pass" name="user_pass" placeholder="Tu contraseña" required>
 				<button data-type-btn="show-password" type="button" class="btn btn-secondary">
-					<img src="<?php echo $imgEye; ?>" alt="image eye" title="Mostrar Contraseña">
+					<img src="<?= $imgEye ?>" alt="image eye" title="Mostrar Contraseña">
 				</button>
 			</div>
 			<div class="col-lg input-group mb-4">
 				<label class="input-group-text" for="user_passVerify">Verificar Contraseña</label>
 				<input type="password" class="form-control" id="user_passVerify" placeholder="Verifica tu contraseña" required>
 				<button data-type-btn="show-password" type="button" class="btn btn-secondary">
-					<img src="<?php echo $imgEye; ?>" alt="image eye" title="Mostrar Contraseña">
+					<img src="<?= $imgEye ?>" alt="image eye" title="Mostrar Contraseña">
 				</button>
 			</div>
 		</div>
@@ -31,6 +31,7 @@ include '../includes/head.php';
 		<?php
 		include '../includes/components/alerts.php';
 		?>
+		<div id="alert"></div>
 	</form>
 </main>
 
