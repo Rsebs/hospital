@@ -65,12 +65,12 @@ function getData(page) {
 // Form Session
 const formSession = document.querySelector('[data-type-form="session"]');
 if (formSession) {
-
 	formSession.addEventListener('submit', validatePasswordMatch);
+}
 
-	// Muestra la contraseña en el input
-	const btnShowPassword = document.querySelectorAll('[data-type-btn="show-password"]');
-
+// Muestra la contraseña en el input
+const btnShowPassword = document.querySelectorAll('[data-type-btn="show-password"]');
+if (btnShowPassword) {
 	btnShowPassword.forEach(btn => {
 		btn.addEventListener('click', () => {
 			const imgEye = btn.children[0];
@@ -85,7 +85,6 @@ if (formSession) {
 			}
 		});
 	});
-
 }
 
 // Válida si las contraseñas coinciden
