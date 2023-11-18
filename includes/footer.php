@@ -20,7 +20,7 @@
 	<p class="text-center text-uppercase text-decoration-underline link-offset-3 fw-italic m-0">Todos los derechos reservados <?= date('Y') ?> &copy;</p>
 </footer>
 <!-- Bootstrap JavaScript Libraries -->
-<script src="<?= $urlBootstrapJS ?>" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="<?= $urlBootstrapJS ?>"></script>
 <!-- My JS -->
 <script src="<?= $urlJS ?>"></script>
 </body>
